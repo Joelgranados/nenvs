@@ -3,9 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixenv_shell_hook.url = "../env_shell_hook";
   };
 
-  outputs = { self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, nixenv_shell_hook, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -39,7 +40,6 @@
           git
           pkg-config
         ];
-        #hardeningDisable = ["fortify"];
 
         shellHook = ''
           export PATH=${pkgs.ccache}/bin:$PATH
@@ -49,9 +49,7 @@
           export CCACHE_DIR=/home/joel/.cache/.ccache
           mkdir -p $CCACHE_DIR
           echo "ccache configured with directory $CCACHE_DIR"
-          export SHELL=$(command -v zsh)
-          exec $SHELL
-        '';
+        '' + nixenv_shell_hook.devShells.${system}.default.shellHook;
       };
     };
 }
