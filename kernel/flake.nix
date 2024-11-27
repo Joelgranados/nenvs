@@ -3,16 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nixenv_shell_hook.url = "../env_shell_hook";
   };
 
-  outputs = { self, nixpkgs, nixenv_shell_hook, ... }:
+  outputs = { self, nixpkgs, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
+      shell_vars = import ../env_shell/env_shell.nix;
+      ccache_vars = import ../ccache/ccache.nix { inherit pkgs; };
     in {
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
+        packages = with pkgs;
+        [
           gnumake
           bison
           flex
@@ -24,7 +26,6 @@
           ]))
           pahole
           elfutils
-          ccache
           bc
           gdb
           openssl
@@ -39,17 +40,12 @@
           git-filter-repo
           git
           pkg-config
-        ];
+        ] ++ ccache_vars.packageList;
 
         shellHook = ''
-          export PATH=${pkgs.ccache}/bin:$PATH
-          export CC="ccache gcc"
-          export CXX="ccache g++"
-          alias make="make CC='"$CC"'"
-          export CCACHE_DIR=/home/joel/.cache/.ccache
-          mkdir -p $CCACHE_DIR
-          echo "ccache configured with directory $CCACHE_DIR"
-        '' + nixenv_shell_hook.devShells.${system}.default.shellHook;
+          ${ccache_vars.shellHook}
+          ${shell_vars.shellHook}
+        '';
       };
     };
 }

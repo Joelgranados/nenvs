@@ -1,35 +1,6 @@
 {
   "nodes": {
-    "nixenv_shell_hook": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-WSGyyVp0vnNgokw2QnApBsKu0oCmgsBi3I4RNIhLEcs=",
-        "path": "/nix/store/zzzv8ldm1iqw3ww2a3fws7xisjk3fraj-source/env_shell_hook",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/zzzv8ldm1iqw3ww2a3fws7xisjk3fraj-source/env_shell_hook",
-        "type": "path"
-      }
-    },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1732238832,
-        "narHash": "sha256-sQxuJm8rHY20xq6Ah+GwIUkF95tWjGRd1X8xF+Pkk38=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8edf06bea5bcbee082df1b7369ff973b91618b8d",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1731797254,
         "narHash": "sha256-df3dJApLPhd11AlueuoN0Q4fHo/hagP75LlM5K1sz9g=",
@@ -47,8 +18,7 @@
     },
     "root": {
       "inputs": {
-        "nixenv_shell_hook": "nixenv_shell_hook",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
