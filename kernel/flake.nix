@@ -3,17 +3,18 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
+    env_ccache.url = "github:Joelgranados/nix_envs?dir=ccache";
   };
 
-  outputs = { self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, env_shell, env_ccache, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
-      shell_vars = import ../env_shell/env_shell.nix;
       ccache_vars = import ../ccache/ccache.nix { inherit pkgs; };
     in {
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs;
+        shellPkgs = with pkgs;
         [
           gnumake
           bison
@@ -40,12 +41,14 @@
           git-filter-repo
           git
           pkg-config
-        ] ++ ccache_vars.packageList;
+        ] ++ env_ccache.devShells.${system}.default.shellPkgs ;
+        packages = self.devShells.${system}.default.shellpkgs;
 
         shellHook = ''
-          ${ccache_vars.shellHook}
-          ${shell_vars.shellHook}
-        '';
+        ''
+        + env_ccache.devShells.${system}.default.shellHook
+        + env_shell.devShells.${system}.default.shellHook
+        ;
       };
     };
 }
