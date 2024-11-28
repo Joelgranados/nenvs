@@ -11,7 +11,6 @@
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
-      ccache_vars = import ../ccache/ccache.nix { inherit pkgs; };
     in {
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
