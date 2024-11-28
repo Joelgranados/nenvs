@@ -42,7 +42,7 @@
           git
           pkg-config
         ] ++ env_ccache.devShells.${system}.default.shellPkgs ;
-        packages = self.devShells.${system}.default.shellpkgs;
+        packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
         ''
