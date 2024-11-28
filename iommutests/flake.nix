@@ -4,9 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     libvfn.url = "github:Joelgranados/libvfn/cc68647b8a4d95d3cb101e036a5662dbb0f696d5";
+    env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
   };
 
-  outputs = { self, nixpkgs, libvfn, ... }:
+  outputs = { self, nixpkgs, libvfn, env_shell, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -32,9 +33,9 @@
         hardeningDisable = ["fortify"];
 
         shellHook = ''
-          export SHELL=$(command -v zsh)
-          exec $SHELL
-        '';
+        ''
+        + env_shell.devShells.${system}.default.shellHook
+        ;
       };
     };
 }
