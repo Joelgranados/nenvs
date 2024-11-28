@@ -10,8 +10,9 @@
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
     in {
-      #packages = { ccache_pkg = pkgs.ccache; };
       devShells.${system}.default = pkgs.mkShell {
+        shellPkgs = with pkgs; [ ccache ];
+        packages = self.devShells.${system}.default.shellPkgs;
         shellHook = ''
           export PATH=${pkgs.ccache}/bin:$PATH
           export CC="ccache gcc"
