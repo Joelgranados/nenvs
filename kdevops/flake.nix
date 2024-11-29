@@ -12,17 +12,16 @@
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
-    in {
-      devShells.${system}.default = pkgs.mkShell {
+    in
+  {
+    devShells.${system}.default = pkgs.mkShell {
 
-        shellPkgs = with pkgs;
-        [
-        ] ++ env_kernel.devShells.${system}.default.shellPkgs ;
-        packages = self.devShells.${system}.default.shellPkgs;
+      shellPkgs = with pkgs;
+        [ ] ++ env_kernel.devShells.${system}.default.shellPkgs ;
+      packages = self.devShells.${system}.default.shellPkgs;
 
-        shellHook = ''
-        ''
+      shellHook = '' ''
         + env_kernel.devShells.${system}.default.shellHook ;
-      };
     };
+  };
 }
