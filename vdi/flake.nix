@@ -11,31 +11,6 @@
       system = "x86_64-linux";
     in
   {
-    nixosConfigurations = {
-      hobbes = nixpkgs.lib.nixosSystem {
-        modules = [
-          # FIXME: Avoid hardcoding this!
-          /etc/nixos/configuration.nix
-          {
-            programs.virt-manager.enable = true;
-
-            virtualisation.libvirtd.enable = true;
-            virtualisation.spiceUSBRedirection.enable = true;
-
-            users.groups.libvirtd.members = [ "joel" ];
-            environment.systemPackages = with pkgs; [
-              virt-manager
-              spice-vdagent
-              spice-gtk
-              usbredir
-              qemu
-              libvirt
-            ];
-          }
-        ];
-      };
-    };
-
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = with pkgs;
       [
