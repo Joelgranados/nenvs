@@ -8,7 +8,9 @@
     in {
       devShells.${system}.default = pkgs.mkShell {
         shellHook = ''
-          export _prompt_sorin_prefix="$_prompt_sorin_prefix%F{green}D"
+          if [[ ! -v _prompt_sorin_prefix ]]; then
+            export _prompt_sorin_prefix="%F{green}D"
+          fi
           export SHELL=$(command -v zsh)
           exec $SHELL
         '';
