@@ -86,6 +86,9 @@ get_vdi_opts()
 vdi_start()
 {
   echo "Msg: Starting VDI $vdi_name"
+  sudo systemctl restart libvirtd
+  sudo systemctl restart virtlogd
+
   $vdi_virsh_cmd start $vdi_name &> /dev/null
   $vdi_virtmgr_cmd --show-domain-console $vdi_name &> /dev/null
 }
@@ -110,7 +113,6 @@ vdi_stop()
     # Here we have a "Operation not permitted", but the window is still closed.
     kill -s 9 $vdi_pid 2> /dev/null
   fi
-
 }
 
 get_vdi_opts "$@"
