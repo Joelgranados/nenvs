@@ -44,6 +44,9 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
+          if [[ ! -v _prompt_sorin_prefix ]]; then
+            export _prompt_sorin_prefix="%F{green}(K4L)"
+          fi
         ''
         + env_ccache.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook

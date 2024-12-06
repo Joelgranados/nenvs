@@ -11,15 +11,18 @@
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
-    in
-  {
-    devShells.${system}.default = pkgs.mkShell {
+    in {
+      devShells.${system}.default = pkgs.mkShell {
 
       shellPkgs = with pkgs;
         [ ansible libguestfs ] ++ env_kernel.devShells.${system}.default.shellPkgs ;
       packages = self.devShells.${system}.default.shellPkgs;
 
-      shellHook = '' ''
+      shellHook = ''
+        if [[ ! -v _prompt_sorin_prefix ]]; then
+          export _prompt_sorin_prefix="%F{green}(K5S)"
+        fi
+      ''
         + env_kernel.devShells.${system}.default.shellHook ;
     };
   };

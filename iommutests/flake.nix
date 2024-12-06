@@ -33,6 +33,7 @@
         hardeningDisable = ["fortify"];
 
         shellHook = ''
+          export _prompt_sorin_prefix="%F{green}(I8S)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
