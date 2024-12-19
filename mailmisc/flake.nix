@@ -15,7 +15,7 @@
         shellPkgs = with pkgs;
         [
           shiv
-          gnumake
+          just
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
