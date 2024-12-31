@@ -6,7 +6,7 @@ clean:
 create_reg:
   touch {{reg_name}}
 
-top:
+top_reg:
   echo "{ \"flakes\": [" >> {{reg_name}}
 
 registries:
@@ -25,7 +25,10 @@ registries:
     fi; \
   done
 
-bottom:
+bottom_reg:
   echo "], \"version\":2 }" >> {{reg_name}}
 
-all: clean top registries bottom
+registry: clean top_reg registries bottom_reg
+
+install inst_path="~/.config/nix/": registry
+  mv --backup=numbered {{reg_name}} {{inst_path}}
