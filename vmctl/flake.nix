@@ -15,6 +15,7 @@
         shellPkgs = with pkgs;
         [
           cdrtools
+          bash
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
