@@ -40,6 +40,11 @@
           git-filter-repo
           git
           pkg-config
+
+          # These are for gcc-plugins to work
+          gmp
+          libmpc
+          mpfr
         ] ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
 
