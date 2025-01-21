@@ -44,6 +44,7 @@
           gmp
           libmpc
           mpfr
+          mutagen
         ] ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
         shellHook = env_ccache.devShells.${system}.default.shellHook;
