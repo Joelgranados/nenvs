@@ -15,12 +15,25 @@
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           (pkgs.writeShellScriptBin "k4l" ''
-            host=$1
+            #!/usr/bin/env bash
+
+            BASENAME="$(basename "''${BASH_SOURCE[0]}")"
+            USAGE="Usage: ''${BASENAME} HOST COMMAND\n
+              HOST      Name of ssh-able host\n
+              COMMAND   Command to append\n
+            "
+
+            if [ $# -lt 2 ]; then
+              echo -e ''${USAGE}
+              exit 1
+            fi
+            HOST=$1
             shift 1;
             PWD=$(pwd)
-            cmd="ssh $host \"(cd $PWD && nix develop github:Joelgranados/nix_envs\?dir=_kernel --command $@)\""
-            echo $cmd
-            eval $cmd
+            KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
+            CMD="ssh ''${HOST} \"(cd ''${PWD} && nix develop ''${KERN_URL} --command $@)\""
+            echo ''${CMD}
+            eval ''${CMD}
           '')
         ] ++ env_kernel.devShells.${system}.default.shellPkgs ;
 
