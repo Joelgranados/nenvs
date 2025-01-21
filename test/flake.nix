@@ -16,6 +16,9 @@
           gnumake
         ];
         packages = self.devShells.${system}.default.shellPkgs;
+        shellHook = ''
+          echo "I'm in the shell hook"
+        '';
       };
     };
 }
