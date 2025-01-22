@@ -7,7 +7,9 @@ _registries:
   #!/usr/bin/env bash
   ref=$(git rev-parse HEAD);
   first_loop="true";
-  dirs=`find . -maxdepth 1 -type d ! -name '.' ! -name 'test' ! -name '.git' -printf '%f\n'`;
+  dirs=`find . -maxdepth 1 -type d \
+    ! -name '.' ! -name 'test' ! -name '.git' ! -name '_kernel' \
+    -printf '%f\n'`;
   for dir in $dirs; do
     if [[ -d $dir ]]; then
       if [[ ! -v first_loop ]]; then
