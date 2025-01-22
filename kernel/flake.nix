@@ -42,7 +42,7 @@
             fi
 
             # Pause on exiting the flake.
-            CMD="trap \"mutagen sync pause ''${MUT_SESS_NAME}\" EXIT
+            CMD="trap \"mutagen sync pause ''${MUT_SESS_NAME}\" EXIT"
 
             CMD="ssh ''${HOST} \"(cd ''${PWD} && nix develop ''${KERN_URL} --command $@)\""
             echo ''${CMD}
