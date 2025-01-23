@@ -17,7 +17,6 @@
           (pkgs.writeShellScriptBin "krc" ''
             #!/usr/bin/env bash
             PWD=$(pwd)
-            MUT_SESS_NAME=$(pwd | sed "s./..g")
             KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
             BASENAME="$(basename "''${BASH_SOURCE[0]}")"
             USAGE="\nUsage: ''${BASENAME} <HOST> <COMMAND>\n
@@ -40,6 +39,7 @@
               echo -e ''${USAGE}; exit 1
             fi
             HOST=$1; shift 1;
+            MUT_SESS_NAME="$(pwd | sed "s./..g")''${HOST}"
 
             mutagen_sync ''${MUT_SESS_NAME}
 
