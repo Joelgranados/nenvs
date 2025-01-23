@@ -19,34 +19,34 @@
             PWD=$(pwd)
             MUT_SESS_NAME=$(pwd | sed "s./..g")
             KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
-
             BASENAME="$(basename "''${BASH_SOURCE[0]}")"
             USAGE="\nUsage: ''${BASENAME} <HOST> <COMMAND>\n
               HOST      Name of ssh-able host\n
               COMMAND   Command to append\n\n
             Note: A mutagen session for $pwd must exist."
 
+            mutagen_sync() {
+              local sess=$1
+              local cmd="mutagen sync resume ''${sess} \
+                && mutagen sync flush ''${sess} \
+                && mutagen sync pause ''${sess}"
+              echo ''${cmd}; eval ''${cmd}
+              if [ $? != 0 ]; then # FIXIT: Extend to check for host equivalence
+                echo -e ''${USAGE}; exit 1
+              fi
+            }
+
             if [ $# -lt 2 ]; then
-              echo -e ''${USAGE}
-              exit 1
+              echo -e ''${USAGE}; exit 1
             fi
             HOST=$1; shift 1;
 
-            CMD="mutagen sync resume ''${MUT_SESS_NAME}"
-            echo ''${CMD}
-            eval ''${CMD}
-            if [ $? != 0 ]; then # FIXIT: Extend to check for host equivalence
-              echo "No mutagen session with the name : ''${MUT_SESS_NAME}"
-              echo -e ''${USAGE}
-              exit 1
-            fi
-
-            # Pause on exiting the flake.
-            CMD="trap \"mutagen sync pause ''${MUT_SESS_NAME}\" EXIT"
+            mutagen_sync ''${MUT_SESS_NAME}
 
             CMD="ssh ''${HOST} \"(cd ''${PWD} && nix develop ''${KERN_URL} --command $@)\""
-            echo ''${CMD}
-            eval ''${CMD}
+            echo ''${CMD}; eval ''${CMD}
+
+            mutagen_sync ''${MUT_SESS_NAME}
           '')
         ] ++ env_kernel.devShells.${system}.default.shellPkgs ;
 
