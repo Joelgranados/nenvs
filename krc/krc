@@ -3,11 +3,15 @@
 PWD=$(pwd)
 KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
 BASENAME="$(basename "${BASH_SOURCE[0]}")"
-USAGE="\nUsage: ${BASENAME} <HOST> <COMMAND>\n\n
-  Execute <COMMAND> in <HOST> through ssh connection.\n
-  A mutagen session for $pwd must exist.\n\n
-  HOST      Name of ssh-able host\n
-  COMMAND   Command to append\n\n"
+USAGE="
+Usage: ${BASENAME} <HOST> <COMMAND>
+
+  Execute <COMMAND> in <HOST> through ssh connection.
+  A mutagen session for PWD must exist.
+
+HOST      Name of ssh-able host
+COMMAND   Command to append
+"
 
 _usage() {
     if [[ $2 -ne 0 ]]; then
@@ -27,12 +31,12 @@ mutagen_sync()
   echo ${cmd}
   eval ${cmd}
   if [ $? != 0 ]; then # FIXIT: Extend to check for host equivalence
-    _usage ${USAGE} 1
+    _usage "${USAGE}" 1
   fi
 }
 
 if [ $# -lt 2 ]; then
-  _usage ${USAGE} 1
+  _usage "${USAGE}" 1
 fi
 HOST=$1; shift 1;
 MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
