@@ -11,16 +11,14 @@ _registries:
     ! -name '.' ! -name 'test' ! -name '.git' ! -name '_kernel' \
     -printf '%f\n'`;
   for dir in $dirs; do
-    if [[ -d $dir ]]; then
-      if [[ ! -v first_loop ]]; then
-        echo "," >> {{reg_name}};
-      fi;
-      cat registry.tmpl \
-        | sed "s/NIX_ENV_NAME/$dir/" \
-        | sed "s/NIX_ENV_REF/$ref/"\
-          >> {{reg_name}};
-      unset first_loop;
+    if [[ ! -v first_loop ]]; then
+      echo "," >> {{reg_name}};
     fi;
+    cat registry.tmpl \
+      | sed "s/NIX_ENV_NAME/$dir/" \
+      | sed "s/NIX_ENV_REF/$ref/"\
+        >> {{reg_name}};
+    unset first_loop;
   done
 
 _bottom_reg:
