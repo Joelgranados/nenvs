@@ -16,6 +16,7 @@
         [
           shiv
           just
+          pyright
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
