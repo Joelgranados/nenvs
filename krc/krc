@@ -4,13 +4,19 @@ PWD=$(pwd)
 KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
 BASENAME="$(basename "${BASH_SOURCE[0]}")"
 USAGE="
-Usage: ${BASENAME} <HOST> <COMMAND>
+Usage: ${BASENAME} [OPTIONS] <HOST> -- <COMMAND>
 
   Execute <COMMAND> in <HOST> through ssh connection.
   A mutagen session for PWD must exist.
 
 HOST      Name of ssh-able host
 COMMAND   Command to append
+
+OPTIONS:
+  -x, --cross-compile <ARCH>    Setup a cross-compilation environment for ARCH
+                                just before executing <COMMAND>. Architecture
+                                strings that work for Linux's ARCH argument should
+                                work here.
 "
 
 _usage() {
