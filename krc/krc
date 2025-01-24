@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+PWD=$(pwd)
+KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
+BASENAME="$(basename "${BASH_SOURCE[0]}")"
+USAGE="\nUsage: ${BASENAME} <HOST> <COMMAND>\n\n
+  Execute <COMMAND> in <HOST> through ssh connection.\n
+  A mutagen session for $pwd must exist.\n\n
+  HOST      Name of ssh-able host\n
+  COMMAND   Command to append\n\n"
+
+_usage() {
+    if [[ $2 -ne 0 ]]; then
+        echo "$1" >&2
+        exit "$2"
+    fi
+    echo "$1"
+    exit 0
+}
+
+mutagen_sync()
+{
+  local sess=$1
+  local cmd="mutagen sync resume ${sess} \
+    && mutagen sync flush ${sess} \
+    && mutagen sync pause ${sess}"
+  echo ${cmd}
+  eval ${cmd}
+  if [ $? != 0 ]; then # FIXIT: Extend to check for host equivalence
+    _usage ${USAGE} 1
+  fi
+}
+
+if [ $# -lt 2 ]; then
+  _usage ${USAGE} 1
+fi
+HOST=$1; shift 1;
+MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
+
+mutagen_sync ${MUT_SESS_NAME}
+
+CMD="ssh ${HOST} \"(cd ${PWD} && nix develop ${KERN_URL} --command $@)\""
+echo ${CMD}
+eval ${CMD}
+
+mutagen_sync ${MUT_SESS_NAME}
+
