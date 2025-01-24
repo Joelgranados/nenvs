@@ -81,22 +81,36 @@ mutagen_sync()
     && mutagen sync pause ${sess}"
   echo ${cmd}
   eval ${cmd}
-  if [ $? != 0 ]; then # FIXIT: Extend to check for host equivalence
+  if [ $? != 0 ]; then
     _usage "${USAGE}" 1
   fi
 }
 
-if [ $# -lt 2 ]; then
-  _usage "${USAGE}" 1
+add_xcompile_cmds()
+{
+  local arch="$1"
+  echo "toolchain_ctl arch_wget ${arch} && toolchain_ctl arch_env ${arch}"
+}
+
+get_krc_opts "$@"
+
+if [[ -v xcomp_arch ]]; then
+  cmd_args="$(add_xcompile_cmds ${xcomp_arch}) && ${cmd_args}"
 fi
-HOST=$1; shift 1;
+
 MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
 
 mutagen_sync ${MUT_SESS_NAME}
 
-CMD="ssh ${HOST} \"(cd ${PWD} && nix develop ${KERN_URL} --command $@)\""
-echo ${CMD}
-eval ${CMD}
+ssh ${HOST} << EOF
+# Adjust PATH for non-login shells that connect to non-nix hosts
+# that have nix packages installed
+if ! echo \$PATH | grep 'nix.profile'; then
+  PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+fi
+
+cd ${PWD} && nix develop ${KERN_URL} --command ${cmd_args}
+EOF
 
 mutagen_sync ${MUT_SESS_NAME}
 
