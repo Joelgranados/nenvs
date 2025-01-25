@@ -106,7 +106,7 @@ ssh ${HOST} << EOF
 # Adjust PATH for non-login shells that connect to non-nix hosts
 # that have nix packages installed
 if ! echo \$PATH | grep 'nix.profile'; then
-  PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+  PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
 fi
 
 cd ${PWD} && nix develop ${KERN_URL} --command ${cmd_args}
