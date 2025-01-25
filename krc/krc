@@ -81,6 +81,8 @@ get_krc_opts()
   if [[ -v xcomp_arch ]]; then
     cmd_args="$(add_xcompile_cmds ${xcomp_arch}) && ${cmd_args}"
   fi
+
+  MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
 }
 
 mutagen_sync()
@@ -98,13 +100,11 @@ mutagen_sync()
 
 get_krc_opts "$@"
 
-MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
-
 mutagen_sync ${MUT_SESS_NAME}
 
 ssh ${HOST} << EOF
 # Adjust PATH for non-login shells that connect to non-nix hosts
-# that have nix packages installed
+# with nix packages installed
 if ! echo \$PATH | grep 'nix.profile'; then
   PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
 fi
