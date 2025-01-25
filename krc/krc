@@ -109,7 +109,7 @@ if ! echo \$PATH | grep 'nix.profile'; then
   PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
 fi
 
-cd ${PWD} && nix develop ${KERN_URL} --command ${cmd_args}
+cd ${PWD} && nix develop ${KERN_URL} --command bash -c "${cmd_args}"
 EOF
 
 mutagen_sync ${MUT_SESS_NAME}
