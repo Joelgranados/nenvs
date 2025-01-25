@@ -80,11 +80,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1737758408,
-        "narHash": "sha256-y1byJKTyGrLx4c61/qUn/wJQdyePWKyUZ36WqqqJ6AE=",
+        "lastModified": 1737832127,
+        "narHash": "sha256-vXEv/HTIZd06DMfCgvqxViC5+JNnBphX5kht2MBnfTQ=",
         "owner": "Joelgranados",
         "repo": "toolchain_ctl",
-        "rev": "7a18d39d7135b5d645da2a5e885104ae8f9d6e00",
+        "rev": "074ffb776499944b519d767557255b0227d5f765",
         "type": "github"
       },
       "original": {
