@@ -35,10 +35,26 @@
 
         shellHook = ''
           export _prompt_sorin_prefix="%F{green}(MAIL)"
+
+          zdottmp=$(mktemp -d)
+
+          zconffiles="zlogin zlogout zpreztorc zprofile zshenv zshrc"
+          for cfile in ''${zconffiles}; do
+            echo "source ~/.''${cfile}" >> ''${zdottmp}/.''${cfile}
+          done
+          ln -s ~/.zprezto ''${zdottmp}/.zprezto
+
+          cat <<EOF >> ''${zdottmp}/.zshrc
+
           alias mailp='neomutt -F ~/Mail/.config/.muttrc_personal';
           alias mailk='neomutt -F ~/Mail/.config/.muttrc_korg';
           alias mailsyncp='~/Mail/.config/sync.sh';
           alias mailsynck='~/Mail/.config/sync.sh';
+
+          trap 'rm -rf ''${zdottmp}' EXIT
+          EOF
+
+          export ZDOTDIR="''${zdottmp}"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
