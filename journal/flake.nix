@@ -20,6 +20,7 @@
           pandoc
           glow # to visualize mark down
           clang-tools
+          pyright
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
