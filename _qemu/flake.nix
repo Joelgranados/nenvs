@@ -24,7 +24,7 @@
           lz4
           libslirp
           clang-tools
-          python314
+          python313
         ]
         ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
