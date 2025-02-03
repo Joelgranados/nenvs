@@ -3,7 +3,7 @@
 
 
 PWD=$(pwd)
-KERN_URL="github:Joelgranados/nix_envs\?dir=_kernel"
+ENVS_GIT_REPO="github:Joelgranados/nix_envs"
 BASENAME="$(basename "${BASH_SOURCE[0]}")"
 USAGE="
 Usage: ${BASENAME} [OPTIONS] <HOST> -- <COMMAND>
@@ -15,10 +15,14 @@ HOST      Name of ssh-able host
 COMMAND   Command to append
 
 OPTIONS:
-  -x, --cross-compile <ARCH>    Setup a cross-compilation environment for ARCH
-                                just before executing <COMMAND>. Architecture
-                                strings that work for Linux's ARCH argument should
-                                work here.
+  -x, --cross-compile <ARCH>  Setup a cross-compilation environment for ARCH
+                              just before executing <COMMAND>. Architecture
+                              strings that work for Linux's ARCH argument should
+                              work here.
+  -e, --env <ENV>             Environment name under ${ENVS_GIT_REPO} to use
+                              for the command. Valid values are _kerne and _qemu.
+                              _kernel by default.
+
 "
 
 _usage() {
@@ -38,8 +42,9 @@ add_xcompile_cmds()
 
 get_krc_opts()
 {
-  local short="x:h"
-  local long="cross-compile:help"
+  local short="x:e:h"
+  local long="cross-compile:env:help"
+  local active_env="_kernel"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
     exit 1
@@ -51,6 +56,10 @@ get_krc_opts()
     case "$1" in
       '-x' | '--cross-compile' )
         xcomp_arch=$2; shift 2
+        ;;
+
+      '-e' | '--env' )
+        ENV_URL="${ENVS_GIT_REPO}\?dir=$2"; shift 2
         ;;
 
       '-h' | '--help' )
@@ -84,6 +93,10 @@ get_krc_opts()
     cmd_args="$(add_xcompile_cmds ${xcomp_arch}) && ${cmd_args}"
   fi
 
+  if [[ ! -v ENV_URL ]]; then
+    ENV_URL="${ENVS_GIT_REPO}\?dir=_kernel"
+  fi
+
   MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
 }
 
@@ -111,7 +124,7 @@ if ! echo \$PATH | grep 'nix.profile'; then
   PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
 fi
 
-cd ${PWD} && nix develop ${KERN_URL} --command bash -c "${cmd_args}"
+cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
 EOF
 
 mutagen_sync ${MUT_SESS_NAME}
