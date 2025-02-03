@@ -23,7 +23,8 @@ OPTIONS:
                               for the command. Valid values are _kerne and _qemu.
                               _kernel by default.
   -v, --verbose               Increase verbosity
-
+  --skip-wait                 Return immediately after calling flushing mutagen
+                              and leave the session un-paused.
 "
 
 _usage() {
@@ -46,7 +47,7 @@ add_xcompile_cmds()
 get_krc_opts()
 {
   local short="x:e:v:h"
-  local long="cross-compile:env:verbose:help"
+  local long="cross-compile:env:verbose:skip-wait,help"
   local active_env="_kernel"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
@@ -63,6 +64,10 @@ get_krc_opts()
 
       '-e' | '--env' )
         ENV_URL="${ENVS_GIT_REPO}\?dir=$2"; shift 2
+        ;;
+
+      'skip-wait' )
+        skip_wait=1; shift
         ;;
 
       '-h' | '--help' )
@@ -107,12 +112,9 @@ get_krc_opts()
   MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
 }
 
-mutagen_sync()
+mutagen_cmd()
 {
-  local sess=$1
-  local cmd="mutagen sync resume ${sess} \
-    && mutagen sync flush ${sess} \
-    && mutagen sync pause ${sess}"
+  local cmd=$1
 
   if [[ -v VERBOSE ]]; then
     echo ${cmd}
@@ -123,9 +125,27 @@ mutagen_sync()
   fi
 }
 
+mutagen_sync_pause()
+{
+  local sess=$1
+  local cmd="mutagen sync resume ${sess} \
+    && mutagen sync flush ${sess} \
+    && mutagen sync pause ${sess}"
+  mutagen_cmd "${cmd}"
+}
+
+mutagen_sync_nopause()
+{
+  local sess=$1
+  local cmd="mutagen sync resume ${sess} \
+    && mutagen sync flush --skip-wait ${sess}"
+  mutagen_cmd "${cmd}"
+
+}
+
 get_krc_opts "$@"
 
-mutagen_sync ${MUT_SESS_NAME}
+mutagen_sync_pause ${MUT_SESS_NAME}
 
 ssh ${HOST} << EOF
 # Adjust PATH for non-login shells that connect to non-nix hosts
@@ -137,5 +157,9 @@ fi
 cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
 EOF
 
-mutagen_sync ${MUT_SESS_NAME}
+if [[ -v skip_wait ]]; then
+  mutagen_sync_nopause ${MUT_SESS_NAME}
+else
+  mutagen_sync_pause ${MUT_SESS_NAME}
+fi
 
