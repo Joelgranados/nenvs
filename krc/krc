@@ -47,7 +47,7 @@ add_xcompile_cmds()
 get_krc_opts()
 {
   local short="x:e:v:h"
-  local long="cross-compile:env:verbose:skip-wait,help"
+  local long="cross-compile:,env:,verbose:,skip-wait,help"
   local active_env="_kernel"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
