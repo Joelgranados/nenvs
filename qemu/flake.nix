@@ -35,7 +35,7 @@
 
         shellHook = ''
           if [[ ! -v _prompt_sorin_prefix ]]; then
-            export _prompt_sorin_prefix="%F{green}(Q2U)"
+            export _prompt_sorin_prefix="%F{green}(QEMU)"
           fi
         ''
         + env_ccache.devShells.${system}.default.shellHook
