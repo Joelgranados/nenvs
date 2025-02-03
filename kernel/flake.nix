@@ -19,6 +19,7 @@
         packages = [
           krc.packages.${system}.default
         ]
+        ++ krc.devShells.${system}.default.shellPkgs
         ++ env_kernel.devShells.${system}.default.shellPkgs ;
 
         shellHook = ''

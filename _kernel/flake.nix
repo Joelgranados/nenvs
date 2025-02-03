@@ -48,9 +48,6 @@
           libmpc
           mpfr
 
-          # For remote compilation
-          mutagen
-
           toolchain_ctl.packages.${system}.default
         ] ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
