@@ -120,7 +120,7 @@ mutagen_sync ${MUT_SESS_NAME}
 ssh ${HOST} << EOF
 # Adjust PATH for non-login shells that connect to non-nix hosts
 # with nix packages installed
-if ! echo \$PATH | grep 'nix.profile'; then
+if ! echo \$PATH | grep 'nix.profile' > /dev/null ; then
   PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
 fi
 
