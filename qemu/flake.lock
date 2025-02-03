@@ -6,11 +6,11 @@
       },
       "locked": {
         "dir": "ccache",
-        "lastModified": 1734646668,
-        "narHash": "sha256-Lxsdm5Gm3XEam9H5Ccijz6/weROLUT4w6efpHAB6/lw=",
+        "lastModified": 1738576316,
+        "narHash": "sha256-Nnx+1USFhFzuG4BdO0vZAusmfdv4sVhL1LPNkFdwONo=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "4e6dbb6c385f65aa2fe2013c719303e4a1dc2d5c",
+        "rev": "d835c11e0914445573570532d95c77bbd87eaf0d",
         "type": "github"
       },
       "original": {
@@ -20,17 +20,38 @@
         "type": "github"
       }
     },
-    "env_shell": {
+    "env_qemu": {
       "inputs": {
+        "env_ccache": "env_ccache",
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "dir": "env_shell",
-        "lastModified": 1734646668,
-        "narHash": "sha256-Lxsdm5Gm3XEam9H5Ccijz6/weROLUT4w6efpHAB6/lw=",
+        "dir": "_qemu",
+        "lastModified": 1738577410,
+        "narHash": "sha256-f9kfIoQXrbBCJGCJYinR96Y6BTBW8cEkzfTr8t2aJUs=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "4e6dbb6c385f65aa2fe2013c719303e4a1dc2d5c",
+        "rev": "360fa9e8a5c3838bac0f19f019be7c97bad4a0a2",
+        "type": "github"
+      },
+      "original": {
+        "dir": "_qemu",
+        "owner": "Joelgranados",
+        "repo": "nix_envs",
+        "type": "github"
+      }
+    },
+    "env_shell": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "dir": "env_shell",
+        "lastModified": 1738577410,
+        "narHash": "sha256-f9kfIoQXrbBCJGCJYinR96Y6BTBW8cEkzfTr8t2aJUs=",
+        "owner": "Joelgranados",
+        "repo": "nix_envs",
+        "rev": "360fa9e8a5c3838bac0f19f019be7c97bad4a0a2",
         "type": "github"
       },
       "original": {
@@ -42,15 +63,15 @@
     },
     "krc": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "dir": "krc",
-        "lastModified": 1738576316,
-        "narHash": "sha256-Nnx+1USFhFzuG4BdO0vZAusmfdv4sVhL1LPNkFdwONo=",
+        "lastModified": 1738577410,
+        "narHash": "sha256-f9kfIoQXrbBCJGCJYinR96Y6BTBW8cEkzfTr8t2aJUs=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "d835c11e0914445573570532d95c77bbd87eaf0d",
+        "rev": "360fa9e8a5c3838bac0f19f019be7c97bad4a0a2",
         "type": "github"
       },
       "original": {
@@ -78,6 +99,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1735563628,
+        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1732238832,
         "narHash": "sha256-sQxuJm8rHY20xq6Ah+GwIUkF95tWjGRd1X8xF+Pkk38=",
         "owner": "NixOS",
@@ -90,7 +127,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1735563628,
         "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
@@ -106,13 +143,13 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
-        "lastModified": 1735286948,
-        "narHash": "sha256-JMRV2RI58nV1UqLXqm+lcea1/dr92fYjWU5S+Rz3fmE=",
+        "lastModified": 1735563628,
+        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "31ac92f9628682b294026f0860e14587a09ffb4b",
+        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
         "type": "github"
       },
       "original": {
@@ -124,10 +161,10 @@
     },
     "root": {
       "inputs": {
-        "env_ccache": "env_ccache",
+        "env_qemu": "env_qemu",
         "env_shell": "env_shell",
         "krc": "krc",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       }
     }
   },
