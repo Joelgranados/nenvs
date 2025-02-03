@@ -27,11 +27,11 @@
       },
       "locked": {
         "dir": "_qemu",
-        "lastModified": 1738577410,
-        "narHash": "sha256-f9kfIoQXrbBCJGCJYinR96Y6BTBW8cEkzfTr8t2aJUs=",
+        "lastModified": 1738578302,
+        "narHash": "sha256-VkGmkFIftBtFilywWz4SO6KXa6FT/sxaD9nPPl83UdM=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "360fa9e8a5c3838bac0f19f019be7c97bad4a0a2",
+        "rev": "89257e97e956b0cb37ccd0ecde4ed97223131e90",
         "type": "github"
       },
       "original": {
@@ -47,11 +47,11 @@
       },
       "locked": {
         "dir": "env_shell",
-        "lastModified": 1738577410,
-        "narHash": "sha256-f9kfIoQXrbBCJGCJYinR96Y6BTBW8cEkzfTr8t2aJUs=",
+        "lastModified": 1738578302,
+        "narHash": "sha256-VkGmkFIftBtFilywWz4SO6KXa6FT/sxaD9nPPl83UdM=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "360fa9e8a5c3838bac0f19f019be7c97bad4a0a2",
+        "rev": "89257e97e956b0cb37ccd0ecde4ed97223131e90",
         "type": "github"
       },
       "original": {
@@ -67,11 +67,11 @@
       },
       "locked": {
         "dir": "krc",
-        "lastModified": 1738577410,
-        "narHash": "sha256-f9kfIoQXrbBCJGCJYinR96Y6BTBW8cEkzfTr8t2aJUs=",
+        "lastModified": 1738578302,
+        "narHash": "sha256-VkGmkFIftBtFilywWz4SO6KXa6FT/sxaD9nPPl83UdM=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "360fa9e8a5c3838bac0f19f019be7c97bad4a0a2",
+        "rev": "89257e97e956b0cb37ccd0ecde4ed97223131e90",
         "type": "github"
       },
       "original": {
