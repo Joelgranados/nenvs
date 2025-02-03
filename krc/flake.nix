@@ -23,6 +23,10 @@
         chmod +x $out/bin/krc
       '';
     };
+    devShells.${system}.default = pkgs.mkShell {
+      shellPkgs = with pkgs; [ mutagen ];
+      packages = self.devShells.${system}.default.shellPkgs;
+    };
   };
 }
 
