@@ -6,11 +6,11 @@
       },
       "locked": {
         "dir": "ccache",
-        "lastModified": 1738587949,
-        "narHash": "sha256-K/wDUS23jyzq3KaeVJ5P0WBd5wio/XsfnDE04MFcWX8=",
+        "lastModified": 1738591685,
+        "narHash": "sha256-v0aB5GtFSrRUhgqt4wQGzHFeL0HpR715ZLITbhCcXbc=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "14ab1bb7a9e9a993c0f10f0ab19796c7d1840be5",
+        "rev": "23743d080e4cc900c075c8c12a7ba8bc28411c53",
         "type": "github"
       },
       "original": {
