@@ -22,6 +22,7 @@ OPTIONS:
   -e, --env <ENV>             Environment name under ${ENVS_GIT_REPO} to use
                               for the command. Valid values are _kerne and _qemu.
                               _kernel by default.
+  -v, --verbose               Increase verbosity
 
 "
 
@@ -37,13 +38,15 @@ _usage() {
 add_xcompile_cmds()
 {
   local arch="$1"
-  echo "toolchain_ctl arch_wget ${arch} && toolchain_ctl arch_env ${arch}"
+  if [[ -v VERBOSE ]]; then
+    echo "toolchain_ctl arch_wget ${arch} && toolchain_ctl arch_env ${arch}"
+  fi
 }
 
 get_krc_opts()
 {
-  local short="x:e:h"
-  local long="cross-compile:env:help"
+  local short="x:e:v:h"
+  local long="cross-compile:env:verbose:help"
   local active_env="_kernel"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
@@ -64,6 +67,10 @@ get_krc_opts()
 
       '-h' | '--help' )
         _usage "${USAGE}" 0
+        ;;
+
+      '-v' | '--verbose' )
+        VERBOSE=1; shift 2
         ;;
 
       '--' )
@@ -106,7 +113,10 @@ mutagen_sync()
   local cmd="mutagen sync resume ${sess} \
     && mutagen sync flush ${sess} \
     && mutagen sync pause ${sess}"
-  echo ${cmd}
+
+  if [[ -v VERBOSE ]]; then
+    echo ${cmd}
+  fi
   eval ${cmd}
   if [ $? != 0 ]; then
     _usage "${USAGE}" 1
