@@ -66,7 +66,7 @@ get_krc_opts()
         ENV_URL="${ENVS_GIT_REPO}\?dir=$2"; shift 2
         ;;
 
-      'skip-wait' )
+      '--skip-wait' )
         skip_wait=1; shift
         ;;
 
