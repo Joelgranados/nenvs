@@ -28,6 +28,7 @@
 
           # to make b4 work
           python311Packages.requests
+          git-filter-repo
         ]
         ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
