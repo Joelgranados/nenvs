@@ -30,6 +30,7 @@
           abook
           xdg-utils
           zathura
+          python311Packages.icalendar
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
