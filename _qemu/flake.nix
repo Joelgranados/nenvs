@@ -25,6 +25,9 @@
           libslirp
           clang-tools
           python311Full
+
+          # to make b4 work
+          python311Packages.requests
         ]
         ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
