@@ -35,3 +35,14 @@ create_reg: clean _top_reg _registries _bottom_reg
 # Install {{reg_name}} in {{inst_path}}
 install inst_path="~/.config/nix/": create_reg
   mv --backup=numbered {{reg_name}} {{inst_path}}
+
+# Update flake lock on envs that depend on {{input}}
+update_nixlock input:
+  #!/usr/bin/env bash
+  for file in $(find -type f -name flake.nix -exec grep -l "{{ input }}.url" {} \;); do
+    env_dir="$(dirname $file)"
+    cmd="nix flake lock --commit-lock-file --update-input {{ input }} ${env_dir}"
+    echo ${cmd}
+    exec ${cmd}
+  done
+
