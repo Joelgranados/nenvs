@@ -24,11 +24,12 @@
           lz4
           libslirp
           clang-tools
-          python311Full
 
-          # to make b4 work
+          # for b4; must go before python311Full
           python311Packages.requests
           git-filter-repo
+
+          python311Full
         ]
         ++ env_ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
