@@ -8,8 +8,8 @@ _registries:
   ref=$(git rev-parse HEAD);
   first_loop="true";
   dirs=`find . -maxdepth 1 -type d \
-    ! -name '.' ! -name 'test' ! -name '.git' ! -name '_kernel' \
-    ! -name '_qemu' ! -name 'krc' \
+    ! -name '.' ! -name 'test' ! -name '.git' ! -name 'kernel_base' \
+    ! -name 'qemu_base' ! -name 'krc' \
     -printf '%f\n'`;
   for dir in $dirs; do
     if [[ ! -v first_loop ]]; then

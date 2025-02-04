@@ -5,10 +5,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    env_ccache.url = "github:Joelgranados/nix_envs?dir=ccache";
+    ccache.url = "github:Joelgranados/nix_envs?dir=ccache";
   };
 
-  outputs = { self, nixpkgs, env_ccache, ... }:
+  outputs = { self, nixpkgs, ccache, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -31,9 +31,9 @@
 
           python311Full
         ]
-        ++ env_ccache.devShells.${system}.default.shellPkgs ;
+        ++ ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
-        shellHook = env_ccache.devShells.${system}.default.shellHook
+        shellHook = ccache.devShells.${system}.default.shellHook
         ;
       };
     };

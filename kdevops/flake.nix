@@ -6,10 +6,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
-    env_kernel.url = "github:Joelgranados/nix_envs?dir=kernel";
+    kernel.url = "github:Joelgranados/nix_envs?dir=kernel";
   };
 
-  outputs = { self, nixpkgs, env_shell, env_kernel, ... }:
+  outputs = { self, nixpkgs, env_shell, kernel, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -17,7 +17,7 @@
       devShells.${system}.default = pkgs.mkShell {
 
       shellPkgs = with pkgs;
-        [ ansible libguestfs ] ++ env_kernel.devShells.${system}.default.shellPkgs ;
+        [ ansible libguestfs ] ++ kernel.devShells.${system}.default.shellPkgs ;
       packages = self.devShells.${system}.default.shellPkgs;
 
       shellHook = ''
@@ -25,7 +25,7 @@
           export _prompt_sorin_prefix="%F{green}(K5S)"
         fi
       ''
-        + env_kernel.devShells.${system}.default.shellHook ;
+        + kernel.devShells.${system}.default.shellHook ;
     };
   };
 }

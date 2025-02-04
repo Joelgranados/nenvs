@@ -20,8 +20,8 @@ OPTIONS:
                               strings that work for Linux's ARCH argument should
                               work here.
   -e, --env <ENV>             Environment name under ${ENVS_GIT_REPO} to use
-                              for the command. Valid values are _kerne and _qemu.
-                              _kernel by default.
+                              for the command. Valid values are kernel_base and
+                              qemu_base. kernel_base is default.
   -v, --verbose               Increase verbosity
   --skip-wait                 Return immediately after calling flushing mutagen
                               and leave the session un-paused.
@@ -48,7 +48,7 @@ get_krc_opts()
 {
   local short="x:e:v:h"
   local long="cross-compile:,env:,verbose:,skip-wait,help"
-  local active_env="_kernel"
+  local active_env="kernel_base"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
     exit 1
@@ -106,7 +106,7 @@ get_krc_opts()
   fi
 
   if [[ ! -v ENV_URL ]]; then
-    ENV_URL="${ENVS_GIT_REPO}\?dir=_kernel"
+    ENV_URL="${ENVS_GIT_REPO}\?dir=kernel_base"
   fi
 
   MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
