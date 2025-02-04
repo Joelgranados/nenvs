@@ -1,42 +1,20 @@
 {
   "nodes": {
-    "env_ccache": {
+    "ccache": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "dir": "ccache",
-        "lastModified": 1737757533,
-        "narHash": "sha256-gzAj1+7ZrVP8h/Tiag0plW9If4DUAyEXDSxYwUyyqNg=",
+        "lastModified": 1738703988,
+        "narHash": "sha256-QFkjnSAbySX150Yb0JGwH9xrV5+Q3+eUakj6WgUIyAk=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "4bd54f62ba8a55b38369f676d0f6c0ffb1cc9f5b",
+        "rev": "4e7bf59d80e5f995df5411f23b75484a0912f2f4",
         "type": "github"
       },
       "original": {
         "dir": "ccache",
-        "owner": "Joelgranados",
-        "repo": "nix_envs",
-        "type": "github"
-      }
-    },
-    "env_kernel": {
-      "inputs": {
-        "env_ccache": "env_ccache",
-        "nixpkgs": "nixpkgs_2",
-        "toolchain_ctl": "toolchain_ctl"
-      },
-      "locked": {
-        "dir": "_kernel",
-        "lastModified": 1738576316,
-        "narHash": "sha256-Nnx+1USFhFzuG4BdO0vZAusmfdv4sVhL1LPNkFdwONo=",
-        "owner": "Joelgranados",
-        "repo": "nix_envs",
-        "rev": "d835c11e0914445573570532d95c77bbd87eaf0d",
-        "type": "github"
-      },
-      "original": {
-        "dir": "_kernel",
         "owner": "Joelgranados",
         "repo": "nix_envs",
         "type": "github"
@@ -44,7 +22,7 @@
     },
     "env_shell": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "dir": "env_shell",
@@ -57,6 +35,28 @@
       },
       "original": {
         "dir": "env_shell",
+        "owner": "Joelgranados",
+        "repo": "nix_envs",
+        "type": "github"
+      }
+    },
+    "kernel_base": {
+      "inputs": {
+        "ccache": "ccache",
+        "nixpkgs": "nixpkgs_3",
+        "toolchain_ctl": "toolchain_ctl"
+      },
+      "locked": {
+        "dir": "kernel_base",
+        "lastModified": 1738703988,
+        "narHash": "sha256-QFkjnSAbySX150Yb0JGwH9xrV5+Q3+eUakj6WgUIyAk=",
+        "owner": "Joelgranados",
+        "repo": "nix_envs",
+        "rev": "4e7bf59d80e5f995df5411f23b75484a0912f2f4",
+        "type": "github"
+      },
+      "original": {
+        "dir": "kernel_base",
         "owner": "Joelgranados",
         "repo": "nix_envs",
         "type": "github"
@@ -84,27 +84,25 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1732238832,
+        "narHash": "sha256-sQxuJm8rHY20xq6Ah+GwIUkF95tWjGRd1X8xF+Pkk38=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8edf06bea5bcbee082df1b7369ff973b91618b8d",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1731797254,
         "narHash": "sha256-df3dJApLPhd11AlueuoN0Q4fHo/hagP75LlM5K1sz9g=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "e8c38b73aeb218e27163376a2d617e61a2ad9b59",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-24.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1735563628,
-        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
         "type": "github"
       },
       "original": {
@@ -132,16 +130,18 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1732238832,
-        "narHash": "sha256-sQxuJm8rHY20xq6Ah+GwIUkF95tWjGRd1X8xF+Pkk38=",
+        "lastModified": 1735563628,
+        "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8edf06bea5bcbee082df1b7369ff973b91618b8d",
+        "rev": "b134951a4c9f3c995fd7be05f3243f8ecd65d798",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "NixOS",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_5": {
@@ -178,15 +178,15 @@
     },
     "root": {
       "inputs": {
-        "env_kernel": "env_kernel",
         "env_shell": "env_shell",
+        "kernel_base": "kernel_base",
         "krc": "krc",
         "nixpkgs": "nixpkgs_6"
       }
     },
     "toolchain_ctl": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1737832127,
