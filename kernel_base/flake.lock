@@ -1,16 +1,16 @@
 {
   "nodes": {
-    "env_ccache": {
+    "ccache": {
       "inputs": {
         "nixpkgs": "nixpkgs"
       },
       "locked": {
         "dir": "ccache",
-        "lastModified": 1737757533,
-        "narHash": "sha256-gzAj1+7ZrVP8h/Tiag0plW9If4DUAyEXDSxYwUyyqNg=",
+        "lastModified": 1738704184,
+        "narHash": "sha256-6vxLd4wFBaERy8UeUsXnSPBstGbKc5qmcuiEwpOQ8yI=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "4bd54f62ba8a55b38369f676d0f6c0ffb1cc9f5b",
+        "rev": "2404f75a56ea8001478a72e906ecc770304c6443",
         "type": "github"
       },
       "original": {
@@ -70,7 +70,7 @@
     },
     "root": {
       "inputs": {
-        "env_ccache": "env_ccache",
+        "ccache": "ccache",
         "nixpkgs": "nixpkgs_2",
         "toolchain_ctl": "toolchain_ctl"
       }
