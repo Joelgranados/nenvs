@@ -27,7 +27,7 @@
 
           # for b4; must go before python311Full
           python311Packages.requests
-          git-filter-repo
+          python311Packages.git-filter-repo
 
           python311Full
         ]
