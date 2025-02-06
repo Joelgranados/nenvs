@@ -39,7 +39,8 @@ install inst_path="~/.config/nix/": create_reg
 # Update flake lock on envs that depend on {{input}}
 update_nixlock input:
   #!/usr/bin/env bash
-  for file in $(find -type f -name flake.nix -exec grep -l "{{ input }}.url" {} \;); do
+  reg_str="{{ input }}.url.*nix_envs?dir={{ input }}"
+  for file in $(find -type f -name flake.nix -exec grep -l "${reg_str}" {} \;); do
     env_dir="$(dirname $file)"
     cmd="nix flake lock --commit-lock-file --update-input {{ input }} ${env_dir}"
     echo ${cmd}
