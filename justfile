@@ -43,6 +43,6 @@ update_nixlock input:
     env_dir="$(dirname $file)"
     cmd="nix flake lock --commit-lock-file --update-input {{ input }} ${env_dir}"
     echo ${cmd}
-    exec ${cmd}
+    eval ${cmd}
   done
 
