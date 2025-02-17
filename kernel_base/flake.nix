@@ -38,7 +38,6 @@
           clang-tools
           coccinelle
           man-pages
-          clang-tools
           git-filter-repo
           git
           pkg-config
