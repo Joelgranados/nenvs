@@ -149,24 +149,39 @@ mutagen_sync_nopause()
 
 }
 
-get_krc_opts "$@"
+remote_exec()
+{
+  mutagen_sync_pause ${MUT_SESS_NAME}
 
-mutagen_sync_pause ${MUT_SESS_NAME}
+  ssh ${HOST} << EOF
+  # Adjust PATH for non-login shells that connect to non-nix hosts
+  # with nix packages installed
+  if ! echo \$PATH | grep 'nix.profile' > /dev/null ; then
+    PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
+  fi
 
-ssh ${HOST} << EOF
-# Adjust PATH for non-login shells that connect to non-nix hosts
-# with nix packages installed
-if ! echo \$PATH | grep 'nix.profile' > /dev/null ; then
-  PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
-fi
-
-eval ${KBUILD_ENVS}
-cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
+  eval ${KBUILD_ENVS}
+  cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
 EOF
 
-if [[ -v skip_wait ]]; then
-  mutagen_sync_nopause ${MUT_SESS_NAME}
+  if [[ -v skip_wait ]]; then
+    mutagen_sync_nopause ${MUT_SESS_NAME}
+  else
+    mutagen_sync_pause ${MUT_SESS_NAME}
+  fi
+}
+
+local_exec()
+{
+  eval ${KBUILD_ENVS}
+  cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
+}
+
+get_krc_opts "$@"
+
+if [[ ${HOST} == "localhost" ]]; then
+  local_exec
 else
-  mutagen_sync_pause ${MUT_SESS_NAME}
+  remote_exec
 fi
 
