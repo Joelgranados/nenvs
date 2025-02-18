@@ -26,6 +26,7 @@
             ppkgs.sphinx
             ppkgs.pyyaml
             ppkgs.ply
+            ppkgs.gitpython
           ]))
           pahole
           elfutils
