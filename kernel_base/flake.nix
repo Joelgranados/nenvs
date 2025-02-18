@@ -25,6 +25,7 @@
             ppkgs.alabaster
             ppkgs.sphinx
             ppkgs.pyyaml
+            ppkgs.ply
           ]))
           pahole
           elfutils
