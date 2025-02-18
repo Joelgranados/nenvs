@@ -115,15 +115,15 @@ get_krc_opts()
     # Adjust PATH for non-login shells connecting to non-nix hosts
     # with nix packages installed
     if ! echo \$PATH | grep 'nix.profile' > /dev/null ; then
-      PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
+      PATH=\"~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH\"
     fi
 
     export KBUILD_BUILD_TIMESTAMP=0
-    export KBUILD_BUILD_USER=\"user\"
-    export KBUILD_BUILD_HOST=\"host\"
-    export LOCALVERSION=\"\"
+    export KBUILD_BUILD_USER=user
+    export KBUILD_BUILD_HOST=host
+    export LOCALVERSION=
 
-    cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
+    cd ${PWD} && nix develop ${ENV_URL} --command bash -c \"${cmd_args}\"
   "
 }
 
