@@ -154,6 +154,10 @@ if ! echo \$PATH | grep 'nix.profile' > /dev/null ; then
   PATH="~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH"
 fi
 
+KBUILD_BUILD_TIMESTAMP=0
+KBUILD_BUILD_USER="user"
+KBUILD_BUILD_HOST="host"
+LOCALVERSION=""
 cd ${PWD} && nix develop ${ENV_URL} --command bash -c "${cmd_args}"
 EOF
 
