@@ -48,11 +48,11 @@
       },
       "locked": {
         "dir": "kernel_base",
-        "lastModified": 1739870409,
-        "narHash": "sha256-yRVO9AKh1nv4NdflehnEb7Yayynkv6FthNaXZNboSrg=",
+        "lastModified": 1739870658,
+        "narHash": "sha256-f6Twu0vnTjnPcA5c6YaoM/h77G2+ZE4pWpk8kegp1aU=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "2e06a0c040b78de405189be3f607d4fd949b10d4",
+        "rev": "804ca83a3e300040cf9e078cbc0425c17c475f7e",
         "type": "github"
       },
       "original": {
