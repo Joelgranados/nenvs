@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-3.0-only
 
-
 PWD=$(pwd)
 ENVS_GIT_REPO="github:Joelgranados/nix_envs"
 BASENAME="$(basename "${BASH_SOURCE[0]}")"
@@ -118,6 +117,7 @@ get_krc_opts()
       PATH=\"~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH\"
     fi
 
+    # https://www.kernel.org/doc/html/latest/kbuild/reproducible-builds.html#timestamps
     export KBUILD_BUILD_TIMESTAMP=0
     export KBUILD_BUILD_USER=user
     export KBUILD_BUILD_HOST=host
