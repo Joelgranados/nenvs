@@ -4,13 +4,15 @@
   description = "libvfn dev flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixUpkgs.url =  "github:NixOS/nixpkgs/nixos-unstable";
     env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
   };
 
-  outputs = { self, nixpkgs, env_shell, ... }:
+  outputs = { self, nixpkgs, env_shell, nixUpkgs, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
+      uPkgs = import nixUpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
@@ -39,11 +41,12 @@
           libnvme
           clang-tools
           git-filter-repo
-          linuxHeaders
+          uPkgs.linuxHeaders
         ];
         hardeningDisable = ["fortify"];
 
         shellHook = ''
+          export C_INCLUDE_PATH="${uPkgs.linuxHeaders}/include:$C_INCLUDE_PATH"
           export _prompt_sorin_prefix="%F{green}(L4N)"
         ''
         + env_shell.devShells.${system}.default.shellHook
