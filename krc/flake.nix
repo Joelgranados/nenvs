@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
 
 {
-  description = "Kerne environment Remote Command (krc)";
+  description = "Kernel environment Remote Command (krc)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
