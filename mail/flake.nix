@@ -44,6 +44,7 @@
             echo "source ~/.''${cfile}" >> ''${zdottmp}/.''${cfile}
           done
           ln -s ~/.zprezto ''${zdottmp}/.zprezto
+          ln -s ~/.zsh_history ''${zdottmp}/.zsh_history
 
           cat <<EOF >> ''${zdottmp}/.zshrc
 
