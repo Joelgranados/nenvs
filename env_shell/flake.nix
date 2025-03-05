@@ -10,9 +10,27 @@
     in {
       devShells.${system}.default = pkgs.mkShell {
         shellHook = ''
-          if [[ ! -v _prompt_sorin_prefix ]]; then
-            export _prompt_sorin_prefix="%F{green}D"
+          if [[ ! -v NIX_ENV_SHELL_PROMPT_PREFIX ]]; then
+            NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}D"
           fi
+
+          zdottmp=$(mktemp -d)
+
+          zconffiles="zlogin zlogout zpreztorc zprofile zshenv zshrc"
+          for cfile in ''${zconffiles}; do
+            echo "source ~/.''${cfile}" >> ''${zdottmp}/.''${cfile}
+          done
+          ln -s ~/.zprezto ''${zdottmp}/.zprezto
+          ln -s ~/.zsh_history ''${zdottmp}/.zsh_history
+
+          cat <<EOF >> ''${zdottmp}/.zshrc
+          ''${NIX_ENV_SHELL_ZSHRC_PREFIX}
+          RPROMPT=''$NIX_ENV_SHELL_PROMPT_PREFIX
+          trap 'rm -rf ''${zdottmp}' EXIT
+          EOF
+
+          export ZDOTDIR="''${zdottmp}"
+
           export SHELL=$(command -v zsh)
           exec $SHELL
         '';
