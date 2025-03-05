@@ -23,9 +23,7 @@
         ++ qemu_base.devShells.${system}.default.shellPkgs ;
 
         shellHook = ''
-          if [[ ! -v _prompt_sorin_prefix ]]; then
-            export _prompt_sorin_prefix="%F{green}(QEMU)"
-          fi
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(QEMU)"
         ''
         + qemu_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook

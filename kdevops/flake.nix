@@ -21,9 +21,7 @@
       packages = self.devShells.${system}.default.shellPkgs;
 
       shellHook = ''
-        if [[ ! -v _prompt_sorin_prefix ]]; then
-          export _prompt_sorin_prefix="%F{green}(K5S)"
-        fi
+        NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(K5S)"
       ''
         + kernel.devShells.${system}.default.shellHook ;
     };

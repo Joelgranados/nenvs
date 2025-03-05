@@ -22,7 +22,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          export _prompt_sorin_prefix="%F{green}(V3L)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(V4L)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
