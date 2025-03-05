@@ -6,11 +6,11 @@
       },
       "locked": {
         "dir": "env_shell",
-        "lastModified": 1738848617,
-        "narHash": "sha256-Gjxnd90NTk3cRscR/gUAb+XbuvTR+ZV7XX/FWHlo2ak=",
+        "lastModified": 1741213166,
+        "narHash": "sha256-+UePnLOgn2s421x989SBOVLwgXZTszMSWTRggDcBToc=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "92d42ab815ea304d402d2a0e2049fda234d4c5da",
+        "rev": "17f49206b9336d29129895cc8064c6817a0c0ad5",
         "type": "github"
       },
       "original": {
