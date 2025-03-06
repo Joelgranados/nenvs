@@ -4,7 +4,7 @@
   description = "kernel dev flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     ccache.url = "github:Joelgranados/nix_envs?dir=ccache";
     toolchain_ctl.url = "github:Joelgranados/toolchain_ctl";
   };
@@ -43,6 +43,7 @@
           git-filter-repo
           git
           pkg-config
+          b4
 
           # These are for gcc-plugins to work
           gmp
