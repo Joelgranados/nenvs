@@ -15,11 +15,12 @@
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
+        packages = with pkgs;
+
+        kernel_base.devShells.${system}.default.shellPkgs
+        ++ [
           sqlite
-          glibc
-        ]
-        ++ kernel_base.devShells.${system}.default.shellPkgs ;
+          ];
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(SMATCH)"
