@@ -39,7 +39,7 @@
 
         shellHook = ''
           export C_INCLUDE_PATH="${uPkgs.linuxHeaders}/include:$C_INCLUDE_PATH"
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(I8S)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(IOMMUTESTS)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;

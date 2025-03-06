@@ -25,7 +25,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(J8G)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(JOURNAL)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;

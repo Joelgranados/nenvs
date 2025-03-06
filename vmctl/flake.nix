@@ -22,7 +22,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(V4L)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(VMCTL)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;

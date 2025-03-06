@@ -23,7 +23,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(M6C)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(MAILMISC)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
