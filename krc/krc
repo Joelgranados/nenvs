@@ -123,7 +123,7 @@ get_krc_opts()
     export KBUILD_BUILD_HOST=host
     export LOCALVERSION=
 
-    cd ${PWD} && nix develop ${ENV_URL} --command bash -c \"${cmd_args}\"
+    cd ${PWD} && nix develop --no-write-lock-file ${ENV_URL} --command bash -c \"${cmd_args}\"
   "
 }
 
