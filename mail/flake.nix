@@ -41,6 +41,8 @@
             alias mailk='neomutt -F ~/Mail/.config/.muttrc_korg';
             alias mailsyncp='~/Mail/.config/sync.sh';
             alias mailsynck='~/Mail/.config/sync.sh';
+            alias lei-stage-a='lei q -v -o ~/Mail/fastmail/lei-staging --dedup=mid -t --no-save -I https://lore.kernel.org/all';
+            alias lei-stage='lei q -v -o ~/Mail/fastmail/lei-staging --dedup=mid -t --no-save';
           "
         ''
         + env_shell.devShells.${system}.default.shellHook
