@@ -38,9 +38,7 @@ _usage() {
 add_xcompile_cmds()
 {
   local arch="$1"
-  if [[ -v VERBOSE ]]; then
-    echo "toolchain_ctl arch_wget ${arch} && toolchain_ctl arch_env ${arch}"
-  fi
+  echo "toolchain_ctl arch_wget ${arch} && toolchain_ctl arch_env ${arch}"
 }
 
 get_krc_opts()
