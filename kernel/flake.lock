@@ -68,11 +68,11 @@
       },
       "locked": {
         "dir": "krc",
-        "lastModified": 1743536225,
-        "narHash": "sha256-gJvNJAN40WCUN53OLEYOvLK427zTa2CnBk/PLhv8gbg=",
+        "lastModified": 1743590518,
+        "narHash": "sha256-VnP0rwBARXH8+qwJ0cPZVRSWQbsToi0tQAEhGflBKA4=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "7adaaad2225a8b601cc31347ea8a00fa01381ca1",
+        "rev": "17f689b9e66f9b542242e9c36c07324ea8d7dcf4",
         "type": "github"
       },
       "original": {
