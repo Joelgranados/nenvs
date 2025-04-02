@@ -3,6 +3,8 @@
 
 PWD=$(pwd)
 ENVS_GIT_REPO="github:Joelgranados/nix_envs"
+TC_GIT_REPO="github:Joelgranados/toolchain_ctl"
+TC_CTL_CMD="nix shell ${TC_GIT_REPO} --impure -c toolchain_ctl"
 BASENAME="$(basename "${BASH_SOURCE[0]}")"
 USAGE="
 Usage: ${BASENAME} [OPTIONS] <HOST> -- <COMMAND>
@@ -98,8 +100,11 @@ get_krc_opts()
   # Update args after filtering out [OPTIONS]
   cmd_args="$@"
 
+  xcompile_cmds=""
   if [[ -v xcomp_arch ]]; then
-    cmd_args="$(add_xcompile_cmds ${xcomp_arch}) && ${cmd_args}"
+    xcompile_cmds="
+      ${TC_CTL_CMD} arch_wget ${xcomp_arch}
+      eval \$(${TC_CTL_CMD} arch_export ${xcomp_arch})"
   fi
 
   if [[ ! -v ENV_URL ]]; then
@@ -120,6 +125,8 @@ get_krc_opts()
     export KBUILD_BUILD_USER=user
     export KBUILD_BUILD_HOST=host
     export LOCALVERSION=
+
+    ${xcompile_cmds}
 
     cd ${PWD} && nix develop --no-write-lock-file ${ENV_URL} --command bash -c \"${cmd_args}\"
   "
