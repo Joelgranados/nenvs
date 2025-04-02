@@ -43,8 +43,8 @@ add_xcompile_cmds()
 
 get_krc_opts()
 {
-  local short="x:e:v:h"
-  local long="cross-compile:,env:,verbose:,skip-wait,help"
+  local short="x:e:vh"
+  local long="cross-compile:,env:,verbose,skip-wait,help"
   local active_env="kernel_base"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
@@ -72,7 +72,7 @@ get_krc_opts()
         ;;
 
       '-v' | '--verbose' )
-        VERBOSE=1; shift 2
+        VERBOSE=1; shift
         ;;
 
       '--' )
@@ -160,6 +160,9 @@ remote_exec()
 {
   mutagen_sync_pause ${MUT_SESS_NAME}
 
+  if [[ -v VERBOSE ]]; then
+    echo "ssh ${HOST} << EOF ${HEREDOC_SCRIPT} EOF"
+  fi
   ssh ${HOST} << EOF
   ${HEREDOC_SCRIPT}
 EOF
@@ -173,6 +176,9 @@ EOF
 
 local_exec()
 {
+  if [[ -v VERBOSE ]]; then
+    echo "bash << EOF ${HEREDOC_SCRIPT} EOF"
+  fi
   bash << EOF
   ${HEREDOC_SCRIPT}
 EOF
