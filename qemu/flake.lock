@@ -145,11 +145,11 @@
       },
       "locked": {
         "dir": "qemu_base",
-        "lastModified": 1743689046,
-        "narHash": "sha256-OsZ495wIlGKkUE5P0pXOEvhFZ14pY9OibEkM78YsBv0=",
+        "lastModified": 1743690709,
+        "narHash": "sha256-QOakGKdaDW4WTZxxaUy20cR458nYaP+MZ7wa8ZHgg3U=",
         "owner": "Joelgranados",
         "repo": "nix_envs",
-        "rev": "9133f88aa85ee57b25c39c4fae7c8476697e4021",
+        "rev": "c1982ff849c3c961774bdca4ba6ef2571f5e00cb",
         "type": "github"
       },
       "original": {
