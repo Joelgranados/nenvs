@@ -34,6 +34,7 @@
         ]
         ++ ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
+        hardeningDisable = ["fortify"];
         shellHook = ccache.devShells.${system}.default.shellHook
         ;
       };

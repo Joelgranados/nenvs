@@ -22,8 +22,6 @@
         ++ krc.devShells.${system}.default.shellPkgs
         ++ qemu_base.devShells.${system}.default.shellPkgs ;
 
-        hardeningDisable = ["fortify"];
-
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(QEMU)"
         ''
