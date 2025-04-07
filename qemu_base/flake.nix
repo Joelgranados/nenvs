@@ -26,6 +26,9 @@
           libslirp
           clang-tools
 
+          # monitor with vmctl
+          socat
+
           # for b4; must go before python311Full
           python311Packages.requests
           python311Packages.git-filter-repo
