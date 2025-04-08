@@ -25,6 +25,7 @@
           lz4
           libslirp
           clang-tools
+          b4
 
           # monitor with vmctl
           socat
