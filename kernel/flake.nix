@@ -5,9 +5,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
-    kernel_base.url = "github:Joelgranados/nix_envs?dir=kernel_base";
-    krc.url = "github:Joelgranados/nix_envs?dir=krc";
+    env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
+    kernel_base.url = "github:Joelgranados/nenvs?dir=kernel_base";
+    krc.url = "github:Joelgranados/nenvs?dir=krc";
   };
 
   outputs = { self, nixpkgs, env_shell, kernel_base, krc, ... }:

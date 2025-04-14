@@ -5,7 +5,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    ccache.url = "github:Joelgranados/nix_envs?dir=ccache";
+    ccache.url = "github:Joelgranados/nenvs?dir=ccache";
     toolchain_ctl.url = "github:Joelgranados/toolchain_ctl";
   };
 

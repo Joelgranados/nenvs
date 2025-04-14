@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 PWD=$(pwd)
-ENVS_GIT_REPO="github:Joelgranados/nix_envs"
+ENVS_GIT_REPO="github:Joelgranados/nenvs"
 TC_GIT_REPO="github:Joelgranados/toolchain_ctl"
 TC_CTL_CMD="nix shell ${TC_GIT_REPO} --impure -c toolchain_ctl"
 BASENAME="$(basename "${BASH_SOURCE[0]}")"

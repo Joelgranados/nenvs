@@ -5,7 +5,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
+    env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
   };
 
   outputs = { self, nixpkgs, env_shell, ... }:

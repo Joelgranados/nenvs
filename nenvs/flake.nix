@@ -1,11 +1,11 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
 
 {
-  description = "nix_envs flake";
+  description = "nix envs flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    env_shell.url = "github:Joelgranados/nix_envs?dir=env_shell";
+    env_shell.url = "github:Joelgranados/nenvs?dir=nenvs";
   };
 
   outputs = { self, nixpkgs, env_shell, ... }:
@@ -21,7 +21,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(N6S)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(NENVS)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
