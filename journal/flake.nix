@@ -21,6 +21,7 @@
           glow # to visualize mark down
           clang-tools
           pyright
+          unzip
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
