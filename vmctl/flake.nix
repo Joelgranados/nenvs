@@ -4,7 +4,7 @@
   description = "vmctl flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
   };
 
@@ -16,6 +16,7 @@
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
         [
+          bash-language-server
           socat
           cdrtools
           bash
