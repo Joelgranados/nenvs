@@ -21,6 +21,7 @@
           socat
           cdrtools
           bash
+          shellcheck
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
