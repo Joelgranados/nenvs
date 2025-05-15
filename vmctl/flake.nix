@@ -16,6 +16,7 @@
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
         [
+          virtiofsd
           bash-language-server
           socat
           cdrtools

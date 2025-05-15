@@ -44,6 +44,7 @@
           git
           pkg-config
           b4
+          virtiofsd
 
           # These are for gcc-plugins to work
           gmp

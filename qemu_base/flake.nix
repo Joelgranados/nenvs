@@ -26,6 +26,8 @@
           libslirp
           clang-tools
           b4
+          fuse3
+          virtiofsd
 
           # monitor with vmctl
           socat
