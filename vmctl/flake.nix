@@ -22,6 +22,13 @@
           cdrtools
           bash
           shellcheck
+
+          # For static compile of image-less init
+          gcc14
+          clang-tools
+          gdb
+          glibc.static
+
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
