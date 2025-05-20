@@ -28,7 +28,7 @@
           clang-tools
           gdb
           glibc.static
-
+          dracut
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
