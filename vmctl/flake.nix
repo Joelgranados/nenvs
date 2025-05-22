@@ -29,6 +29,8 @@
           gdb
           glibc.static
           dracut
+          clang
+          musl
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
