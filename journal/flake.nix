@@ -27,6 +27,9 @@
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(JOURNAL)"
+          NIX_ENV_SHELL_ZSHRC_PREFIX="
+            cd ~/src/journal
+          "
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
