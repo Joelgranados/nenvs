@@ -26,11 +26,11 @@
       },
       "locked": {
         "dir": "env_shell",
-        "lastModified": 1744631770,
-        "narHash": "sha256-12+FPI4PszG+iroDcctFlqV5x9C7APeqpOm4gIh/B50=",
+        "lastModified": 1747982777,
+        "narHash": "sha256-FeE20jL2hg7oZ5GPXflIgTOA7U2SyyoSiIZcQ3gAEQ8=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "f6c02c06eb6c9c284d5e84184d4161db1c10d1bd",
+        "rev": "74896ddca23e2986a1a672e85193a4338572d98e",
         "type": "github"
       },
       "original": {
