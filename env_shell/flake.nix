@@ -26,8 +26,7 @@
           cat <<EOF >> ''${zdottmp}/.zshrc
           ''${NIX_ENV_SHELL_ZSHRC_PREFIX}
           RPROMPT=''$NIX_ENV_SHELL_PROMPT_PREFIX
-          trap 'rm -rf ''${zdottmp}' EXIT
-          trap 'rm -rf ''${TMP}' EXIT
+          trap 'rm -rf ''${zdottmp} ''${TMP} ''${BASH_SOURCE}' EXIT
           EOF
 
           export ZDOTDIR="''${zdottmp}"
