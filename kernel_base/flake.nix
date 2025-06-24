@@ -51,6 +51,9 @@
           libmpc
           mpfr
 
+          # to send mails with b4
+          msmtp
+
           toolchain_ctl.packages.${system}.default
         ] ++ ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
