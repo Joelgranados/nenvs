@@ -38,6 +38,7 @@
           kmod
           zlib
           clang-tools
+          bash-language-server
           coccinelle
           man-pages
           git-filter-repo
