@@ -22,6 +22,9 @@
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(NENVS)"
+          NIX_ENV_SHELL_ZSHRC_PREFIX="
+            cd ~/src/nenvs
+          "
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
