@@ -39,6 +39,7 @@
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             cd ~/src/vmctl
           "
+          export VMCTL_VMROOT=$HOME/vms
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
