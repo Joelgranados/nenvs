@@ -39,6 +39,7 @@
           python311Full
         ]
         ++ ccache.devShells.${system}.default.shellPkgs ;
+        hardeningDisable = ["fortify"];
         packages = self.devShells.${system}.default.shellPkgs;
         shellHook = ccache.devShells.${system}.default.shellHook
         ;
