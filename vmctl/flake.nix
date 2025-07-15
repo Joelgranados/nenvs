@@ -40,6 +40,7 @@
             cd ~/src/vmctl
           "
           export VMCTL_VMROOT=$HOME/vms
+          export PATH="''${HOME}/src/vmctl:$PATH"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
