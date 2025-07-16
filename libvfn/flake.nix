@@ -38,6 +38,7 @@
           pkg-config
           libnvme
           clang-tools
+          bash-language-server
           git-filter-repo
           linuxHeaders
         ];
