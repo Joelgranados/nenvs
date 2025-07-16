@@ -24,7 +24,7 @@
           pkg-config
           cmake
           clang-tools
-          #nodePackages.pyright
+          bash-language-server
           man-pages
           python311Packages.pytest
           python311Packages.pyudev
