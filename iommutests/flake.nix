@@ -38,6 +38,10 @@
         shellHook = ''
           export C_INCLUDE_PATH="${pkgs.linuxHeaders}/include:$C_INCLUDE_PATH"
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(IOMMUTESTS)"
+
+          NIX_ENV_SHELL_ZSHRC_PREFIX="
+            cd ~/src/iommutests
+          "
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
