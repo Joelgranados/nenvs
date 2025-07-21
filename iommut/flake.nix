@@ -26,8 +26,9 @@
           clang-tools
           bash-language-server
           man-pages
-          python311Packages.pytest
-          python311Packages.pyudev
+          python3
+          (python3.withPackages (ps: with ps; [pytest pyudev]))
+          pyright
           git-filter-repo
           clang-tools
           man-pages
