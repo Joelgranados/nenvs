@@ -4,8 +4,8 @@
   description = "iommutests dev flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    libvfn.url = "github:Joelgranados/libvfn/d511b650cdc26bc00fbf2ea8cf5684cc952af4e4";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    libvfn.url = "github:Joelgranados/libvfn/7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
   };
 
