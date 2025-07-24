@@ -45,7 +45,6 @@
         hardeningDisable = ["fortify"];
 
         shellHook = ''
-          export C_INCLUDE_PATH="${pkgs.linuxHeaders}/include:$C_INCLUDE_PATH"
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(LIBVFN)"
 
           NIX_ENV_SHELL_ZSHRC_PREFIX="
