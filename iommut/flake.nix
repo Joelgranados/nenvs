@@ -4,14 +4,17 @@
   description = "iommutests dev flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     libvfn.url = "github:Joelgranados/libvfn/d511b650cdc26bc00fbf2ea8cf5684cc952af4e4";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
   };
 
   outputs = { self, nixpkgs, libvfn, env_shell, ... }:
     let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
@@ -33,6 +36,7 @@
           clang-tools
           man-pages
           linuxHeaders
+          claude-code
         ];
         hardeningDisable = ["fortify"];
 
