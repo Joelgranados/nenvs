@@ -4,7 +4,7 @@
   description = "kernel dev flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     ccache.url = "github:Joelgranados/nenvs?dir=ccache";
     toolchain_ctl.url = "github:Joelgranados/toolchain_ctl";
   };

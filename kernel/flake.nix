@@ -4,7 +4,7 @@
   description = "kernel shell dev flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     kernel_base.url = "github:Joelgranados/nenvs?dir=kernel_base";
     krc.url = "github:Joelgranados/nenvs?dir=krc";
@@ -12,12 +12,16 @@
 
   outputs = { self, nixpkgs, env_shell, kernel_base, krc, ... }:
     let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        };
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           krc.packages.${system}.default
+          pkgs.claude-code
         ]
         ++ krc.devShells.${system}.default.shellPkgs
         ++ kernel_base.devShells.${system}.default.shellPkgs ;
