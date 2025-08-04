@@ -5,23 +5,27 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    u_nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     kernel_base.url = "github:Joelgranados/nenvs?dir=kernel_base";
     krc.url = "github:Joelgranados/nenvs?dir=krc";
   };
 
-  outputs = { self, nixpkgs, env_shell, kernel_base, krc, ... }:
+  outputs = { self, nixpkgs, u_nixpkgs, env_shell, kernel_base, krc, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
+      };
+      upkgs = import u_nixpkgs {
+        system = "x86_64-linux";
         config.allowUnfree = true;
-        };
+      };
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           krc.packages.${system}.default
-          pkgs.claude-code
+          upkgs.claude-code
         ]
         ++ krc.devShells.${system}.default.shellPkgs
         ++ kernel_base.devShells.${system}.default.shellPkgs ;
