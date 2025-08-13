@@ -28,22 +28,31 @@
           };
           pname = "vmctl-sysctl";
         });
+      };
 
+      libvfnOverlay = final: prev: {
+        libvfn = libvfn.packages.${system}.default.overrideAttrs (oldAttrs: {
+          src = prev.fetchgit {
+            url = "https://github.com/Joelgranados/libvfn";
+            rev = "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
+            sha256 = "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=";
+          };
+        });
       };
 
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ overlay ];
+        overlays = [ overlay libvfnOverlay ];
       };
     in
     {
       packages.${system} = {
         qemu-sysctl = pkgs.qemu;
         vmctl-sysctl = pkgs.vmctl;
-        libvfn = libvfn.packages.${system}.default;
+        libvfn = pkgs.libvfn;
         default = pkgs.symlinkJoin {
           name = "iommut base testing";
-          paths = [ pkgs.qemu pkgs.vmctl libvfn.packages.${system}.default ];
+          paths = [ pkgs.qemu pkgs.vmctl pkgs.libvfn ];
         };
       };
     };

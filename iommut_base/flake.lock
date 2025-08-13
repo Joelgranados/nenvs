@@ -1,6 +1,40 @@
 {
   "nodes": {
+    "libvfn": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1755074115,
+        "narHash": "sha256-iv+SEr25nlHS4PBPNJRyNk8O8U70fs1sBxIAuPvfUvI=",
+        "owner": "SamsungDS",
+        "repo": "libvfn",
+        "rev": "404443b754c6f9fcfaa3f3114d6d3897684db5eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SamsungDS",
+        "repo": "libvfn",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1742751704,
+        "narHash": "sha256-rBfc+H1dDBUQ2mgVITMGBPI1PGuCznf9rcWX/XIULyE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f0946fa5f1fb876a9dc2e1850d9d3a4e3f914092",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1754937576,
         "narHash": "sha256-3sWA5WJybUE16kIMZ3+uxcxKZY/JRR4DFBqLdSLBo7w=",
@@ -18,7 +52,8 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "libvfn": "libvfn",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },
