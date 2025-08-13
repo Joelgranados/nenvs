@@ -3,9 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    libvfn.url = "github:Joelgranados/libvfn/7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
   };
 
-  outputs = { self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, libvfn, ... }:
     let
       system = "x86_64-linux";
 
@@ -39,9 +40,10 @@
       packages.${system} = {
         qemu-sysctl = pkgs.qemu;
         vmctl-sysctl = pkgs.vmctl;
+        libvfn = libvfn.packages.${system}.default;
         default = pkgs.symlinkJoin {
           name = "iommut base testing";
-          paths = [ pkgs.qemu pkgs.vmctl ];
+          paths = [ pkgs.qemu pkgs.vmctl libvfn.packages.${system}.default ];
         };
       };
     };
