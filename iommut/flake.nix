@@ -42,7 +42,7 @@
         hardeningDisable = ["fortify"];
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(IOMMUTESTS)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(IOMMUT)"
 
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             cd ~/src/iommutests
