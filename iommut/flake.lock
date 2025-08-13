@@ -20,22 +20,42 @@
         "type": "github"
       }
     },
+    "iommut_base": {
+      "inputs": {
+        "libvfn": "libvfn",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "dir": "iommut_base",
+        "lastModified": 1755091215,
+        "narHash": "sha256-BFLOipwW4Y3dod7M1sAriOwLx67gRpWLXZ4BfcSL/wI=",
+        "owner": "Joelgranados",
+        "repo": "nenvs",
+        "rev": "7c64ce65f803e5a9ee0113a1377e664478a50a51",
+        "type": "github"
+      },
+      "original": {
+        "dir": "iommut_base",
+        "owner": "Joelgranados",
+        "repo": "nenvs",
+        "type": "github"
+      }
+    },
     "libvfn": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1753366320,
-        "narHash": "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=",
-        "owner": "Joelgranados",
+        "lastModified": 1755074115,
+        "narHash": "sha256-iv+SEr25nlHS4PBPNJRyNk8O8U70fs1sBxIAuPvfUvI=",
+        "owner": "SamsungDS",
         "repo": "libvfn",
-        "rev": "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b",
+        "rev": "404443b754c6f9fcfaa3f3114d6d3897684db5eb",
         "type": "github"
       },
       "original": {
-        "owner": "Joelgranados",
+        "owner": "SamsungDS",
         "repo": "libvfn",
-        "rev": "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b",
         "type": "github"
       }
     },
@@ -55,11 +75,27 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1753115646,
-        "narHash": "sha256-yLuz5cz5Z+sn8DRAfNkrd2Z1cV6DaYO9JMrEz4KZo/c=",
+        "lastModified": 1742751704,
+        "narHash": "sha256-rBfc+H1dDBUQ2mgVITMGBPI1PGuCznf9rcWX/XIULyE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "92c2e04a475523e723c67ef872d8037379073681",
+        "rev": "f0946fa5f1fb876a9dc2e1850d9d3a4e3f914092",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1754937576,
+        "narHash": "sha256-3sWA5WJybUE16kIMZ3+uxcxKZY/JRR4DFBqLdSLBo7w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ddae11e58c0c345bf66efbddbf2192ed0e58f896",
         "type": "github"
       },
       "original": {
@@ -69,7 +105,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1753115646,
         "narHash": "sha256-yLuz5cz5Z+sn8DRAfNkrd2Z1cV6DaYO9JMrEz4KZo/c=",
@@ -88,8 +124,8 @@
     "root": {
       "inputs": {
         "env_shell": "env_shell",
-        "libvfn": "libvfn",
-        "nixpkgs": "nixpkgs_3"
+        "iommut_base": "iommut_base",
+        "nixpkgs": "nixpkgs_4"
       }
     }
   },
