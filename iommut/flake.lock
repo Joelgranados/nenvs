@@ -7,11 +7,11 @@
       },
       "locked": {
         "dir": "claude",
-        "lastModified": 1755160141,
-        "narHash": "sha256-2038ovNCvlil+MlSwK0AswiCFKp+Gjgf2+BlE+EVf14=",
+        "lastModified": 1755160204,
+        "narHash": "sha256-cRTU4jaFOgiKobkvhKwoA9ZQF2Ig27Lw+GGYN6Tu9vk=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "f963ca053254e8949c746571b4f3aeb857d4c129",
+        "rev": "fabf8cb7920bbd7d94d840fa02e7ea206f81ea23",
         "type": "github"
       },
       "original": {
