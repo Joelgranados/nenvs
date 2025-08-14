@@ -5,25 +5,20 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    u_nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
+    claude.url = "github:Joelgranados/nenvs?dir=claude";
   };
 
-  outputs = { self, nixpkgs, u_nixpkgs, env_shell, ... }:
+  outputs = { self, nixpkgs, env_shell, claude, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
-      upkgs = import u_nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
         [
           just
-          upkgs.claude-code
-        ];
+        ] ++ claude.devShells.${system}.default.shellPkgs;
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''

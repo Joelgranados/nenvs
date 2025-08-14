@@ -7,9 +7,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     iommut_base.url = "github:Joelgranados/nenvs?dir=iommut_base";
+    claude.url = "github:Joelgranados/nenvs?dir=claude";
   };
 
-  outputs = { self, nixpkgs, env_shell, iommut_base, ... }:
+  outputs = { self, nixpkgs, env_shell, iommut_base, claude, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -37,8 +38,7 @@
           clang-tools
           man-pages
           linuxHeaders
-          claude-code
-        ]);
+        ]) ++ claude.devShells.${system}.default.shellPkgs;
         hardeningDisable = ["fortify"];
 
         shellHook = ''
