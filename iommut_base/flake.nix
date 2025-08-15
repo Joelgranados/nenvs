@@ -30,30 +30,39 @@
         });
       };
 
-      libvfnOverlay = final: prev: {
-        libvfn = libvfn.packages.${system}.default.overrideAttrs (oldAttrs: {
-          src = prev.fetchgit {
-            url = "https://github.com/Joelgranados/libvfn";
-            rev = "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
-            sha256 = "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=";
-          };
-        });
-      };
+      customLibvfn = libvfn.packages.${system}.default.overrideAttrs (oldAttrs: {
+        src = pkgs.fetchgit {
+          url = "https://github.com/Joelgranados/libvfn";
+          rev = "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
+          sha256 = "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=";
+        };
+        pname = "libvfn";
+      });
 
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ overlay libvfnOverlay ];
+        overlays = [ overlay ];
       };
     in
     {
       packages.${system} = {
-        qemu-sysctl = pkgs.qemu;
-        vmctl-sysctl = pkgs.vmctl;
-        libvfn = pkgs.libvfn;
+        qemu-iommut = pkgs.qemu;
+        vmctl-iommut = pkgs.vmctl;
+        libvfn = customLibvfn;
         default = pkgs.symlinkJoin {
           name = "iommut base testing";
-          paths = [ pkgs.qemu pkgs.vmctl pkgs.libvfn ];
+          paths = [ pkgs.qemu pkgs.vmctl customLibvfn ];
         };
+      };
+
+      devShells.${system}.default = pkgs.mkShell {
+        shellPkgs = [
+          pkgs.qemu
+          pkgs.vmctl
+          customLibvfn
+          pkgs.virtiofsd
+        ];
+        packages = self.devShells.${system}.default.shellPkgs;
       };
     };
 }
