@@ -38,6 +38,7 @@
           clang-tools
           man-pages
           linuxHeaders
+          virtiofsd
         ]) ++ claude.devShells.${system}.default.shellPkgs;
         hardeningDisable = ["fortify"];
 
