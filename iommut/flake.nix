@@ -19,9 +19,7 @@
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
-        packages = [
-          iommut_base.packages.${system}.default
-        ] ++ (with pkgs; [
+        packages = with pkgs; [
           meson
           ninja
           git
@@ -38,8 +36,8 @@
           clang-tools
           man-pages
           linuxHeaders
-          virtiofsd
-        ]) ++ claude.devShells.${system}.default.shellPkgs;
+        ] ++ claude.devShells.${system}.default.shellPkgs
+        ++ iommut_base.devShells.${system}.default.shellPkgs ;
         hardeningDisable = ["fortify"];
 
         shellHook = ''
