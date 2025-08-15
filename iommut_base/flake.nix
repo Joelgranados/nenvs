@@ -27,6 +27,35 @@
             sha256 = "sha256-jH8jNQhfusp5Lkh2o48E/fPOli4lSowfkazNDGsWzHQ=";
           };
           pname = "vmctl-iommut";
+          installPhase = ''
+            runHook preInstall
+
+            install -Dm555 vmctl -t "$out/bin"
+            wrapProgram "$out/bin/vmctl" \
+              --set PATH "${
+                prev.lib.makeBinPath [
+                  prev.openssh
+                  prev.socat
+                  prev.gawk
+                  prev.cloud-utils
+                  prev.cdrtools
+                  prev.qemu
+                  prev.qemu-utils
+                  prev.coreutils
+                  prev.getopt
+
+                  # Additional deps for new vmctl
+                  prev.virtiofsd
+                  prev.nix
+                  prev.gnumake
+                  prev.gcc
+                  prev.gnused
+                ]
+              }"
+
+            cp -r {cmd,common,contrib,lib} $out
+            runHook postInstall
+          '';
         });
       };
 
