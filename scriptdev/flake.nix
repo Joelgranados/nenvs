@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
 
 {
-  description = "bash development flake";
+  description = "Scripting development flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -19,11 +19,13 @@
           bash
           bash-language-server
           shellcheck
+          python311Full
+          pyright
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(BASHDEV)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(SCRIPTDEV)"
         ''
         + env_shell.devShells.${system}.default.shellHook
         ;
