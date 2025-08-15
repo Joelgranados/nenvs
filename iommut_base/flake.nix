@@ -22,11 +22,11 @@
         });
         vmctl = prev.vmctl.overrideAttrs (oldAttrs: {
           src = prev.fetchgit {
-            url = "https://github.com/Joelgranados/vmctl";
-            rev = "97e19f8fd6046f6cbb96064bea823c8dfa562e6f";
-            sha256 = "sha256-+29vPc37Jy9nHXvydX3OgNEy0JHq1BmT06XEhuFL/6I=";
+            url = "https://github.com/SamsungDS/vmctl";
+            rev = "a12183b58a48dcba71c9edd9889a7bf067481c70";
+            sha256 = "sha256-jH8jNQhfusp5Lkh2o48E/fPOli4lSowfkazNDGsWzHQ=";
           };
-          pname = "vmctl-sysctl";
+          pname = "vmctl-iommut";
         });
       };
 
