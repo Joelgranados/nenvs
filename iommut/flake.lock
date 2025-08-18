@@ -68,11 +68,11 @@
       },
       "locked": {
         "dir": "iommut_base",
-        "lastModified": 1755509359,
-        "narHash": "sha256-ClzSQsE1tSSJd3WyLFrOuAb38O5q+o/oHUISiQhNx2U=",
+        "lastModified": 1755518313,
+        "narHash": "sha256-VAh8RoqyeFeMWa03KBOIX/iZBehnVs4YfMZBxsuQPTU=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "bdf5f9692dab7c0ef63a7b6be57683b91a50b919",
+        "rev": "8a580436fdedf2979d9882da3c7839ccec17d6e6",
         "type": "github"
       },
       "original": {
