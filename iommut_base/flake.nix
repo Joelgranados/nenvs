@@ -50,6 +50,12 @@
                   prev.gnumake
                   prev.gcc
                   prev.gnused
+                  prev.bash
+                  prev.glibc.static
+                  prev.clang
+                  prev.musl.dev
+                  prev.cpio
+                  prev.findutils
                 ]
               }"
 
