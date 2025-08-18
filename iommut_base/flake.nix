@@ -19,6 +19,9 @@
           };
           pname = "qemu-iommut";
           patches = [];
+          configureFlags = (oldAttrs.configureFlags or []) ++ [
+            "--extra-cflags=-DCONFIG_TEST_DEVICES=1"
+          ];
         });
         vmctl = prev.vmctl.overrideAttrs (oldAttrs: {
           src = prev.fetchgit {
