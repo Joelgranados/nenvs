@@ -19,9 +19,6 @@
           };
           pname = "qemu-iommut";
           patches = [];
-          configureFlags = (oldAttrs.configureFlags or []) ++ [
-            "--extra-cflags=-DCONFIG_TEST_DEVICES=1"
-          ];
         });
         vmctl = prev.vmctl.overrideAttrs (oldAttrs: {
           src = prev.fetchgit {
@@ -42,8 +39,8 @@
                   prev.gawk
                   prev.cloud-utils
                   prev.cdrtools
-                  prev.qemu
-                  prev.qemu-utils
+                  final.qemu
+                  final.qemu-utils
                   prev.coreutils
                   prev.getopt
 
