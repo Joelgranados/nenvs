@@ -6,9 +6,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
+    claude.url = "github:Joelgranados/nenvs?dir=claude";
   };
 
-  outputs = { self, nixpkgs, env_shell, ... }:
+  outputs = { self, nixpkgs, env_shell, claude, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -22,7 +23,7 @@
           clang-tools
           pyright
           unzip
-        ];
+        ] ++ claude.devShells.${system}.default.shellPkgs;
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
