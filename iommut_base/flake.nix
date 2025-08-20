@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    libvfn.url = "github:SamsungDS/libvfn";
+    libvfn.url = "github:Joelgranados/libvfn/7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
   };
 
   nixConfig = {
@@ -96,15 +96,6 @@
         });
       };
 
-      customLibvfn = libvfn.packages.${system}.default.overrideAttrs (oldAttrs: {
-        src = pkgs.fetchgit {
-          url = "https://github.com/Joelgranados/libvfn";
-          rev = "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
-          sha256 = "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=";
-        };
-        pname = "libvfn";
-      });
-
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ overlay ];
@@ -114,19 +105,18 @@
       packages.${system} = {
         qemu-iommut = pkgs.qemu;
         vmctl-iommut = pkgs.vmctl;
-        libvfn = customLibvfn;
         customKernel = pkgs.customKernel;
         default = pkgs.symlinkJoin {
           name = "iommut base testing";
-          paths = [ pkgs.qemu pkgs.vmctl customLibvfn ];
+          paths = [ pkgs.qemu pkgs.vmctl ];
         };
       };
 
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = [
+          libvfn.packages.${system}.default
           pkgs.qemu
           pkgs.vmctl
-          customLibvfn
           pkgs.virtiofsd
           pkgs.customKernel
         ];
