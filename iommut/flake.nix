@@ -47,6 +47,7 @@
             cd ~/src/iommutests
           "
         ''
+        + iommut_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };
