@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    iommut.url = "github:SamsungDS/iommutests/ff6d6d79de935621da3a67efbcbef8f04e9e13b8";
+    iommut.url = "github:SamsungDS/iommutests/13d156cce9cef5da2ba5a2634ba2a62d82da92a2";
   };
 
   nixConfig = {
