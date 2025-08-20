@@ -7,10 +7,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     iommut_base.url = "github:Joelgranados/nenvs?dir=iommut_base";
+    libvfn.url = "github:Joelgranados/libvfn/7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
     claude.url = "github:Joelgranados/nenvs?dir=claude";
   };
 
-  outputs = { self, nixpkgs, env_shell, iommut_base, claude, ... }:
+  outputs = { self, nixpkgs, env_shell, iommut_base, claude, libvfn, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -20,6 +21,7 @@
     in {
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
+          libvfn.packages.${pkgs.system}.default
           meson
           ninja
           git

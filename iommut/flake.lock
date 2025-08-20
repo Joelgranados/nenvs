@@ -121,6 +121,25 @@
         "type": "github"
       }
     },
+    "libvfn_2": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1753366320,
+        "narHash": "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=",
+        "owner": "Joelgranados",
+        "repo": "libvfn",
+        "rev": "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Joelgranados",
+        "repo": "libvfn",
+        "rev": "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1744536153,
@@ -229,12 +248,29 @@
         "type": "github"
       }
     },
+    "nixpkgs_8": {
+      "locked": {
+        "lastModified": 1753115646,
+        "narHash": "sha256-yLuz5cz5Z+sn8DRAfNkrd2Z1cV6DaYO9JMrEz4KZo/c=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "92c2e04a475523e723c67ef872d8037379073681",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "claude": "claude",
         "env_shell": "env_shell_2",
         "iommut_base": "iommut_base",
-        "nixpkgs": "nixpkgs_7"
+        "libvfn": "libvfn_2",
+        "nixpkgs": "nixpkgs_8"
       }
     }
   },
