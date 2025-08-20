@@ -68,11 +68,11 @@
       },
       "locked": {
         "dir": "iommut_base",
-        "lastModified": 1755681183,
-        "narHash": "sha256-2T5P9Y4aC7dOM//XiEH5TnWqYmhUduNJXHadV8tSPaM=",
+        "lastModified": 1755685947,
+        "narHash": "sha256-IULu+LmMeDyj4hBTvOr4L40ZTcFwk1SvDAYnESn+r8c=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "474792b9a3f9118f349862304342cada09c1958d",
+        "rev": "13569af4b3f1c706e43635b090c329d1ce4c5758",
         "type": "github"
       },
       "original": {
@@ -87,16 +87,17 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1755428120,
-        "narHash": "sha256-RUBCVeZo2WHUY3XXetYKBdiHruXcQZomuppaWNy7BhA=",
-        "owner": "SamsungDS",
+        "lastModified": 1753366320,
+        "narHash": "sha256-2tRGGsxrFCai2knO30DNsuGZ9/+YCN2yiUxxR9tV+2A=",
+        "owner": "Joelgranados",
         "repo": "libvfn",
-        "rev": "61064e31969859234bd5135fd9b314535e2eca5e",
+        "rev": "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b",
         "type": "github"
       },
       "original": {
-        "owner": "SamsungDS",
+        "owner": "Joelgranados",
         "repo": "libvfn",
+        "rev": "7766ed4d1fd0e2a73e28b686735cb77abe19ff2b",
         "type": "github"
       }
     },
@@ -146,16 +147,16 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1742751704,
-        "narHash": "sha256-rBfc+H1dDBUQ2mgVITMGBPI1PGuCznf9rcWX/XIULyE=",
+        "lastModified": 1755593991,
+        "narHash": "sha256-BA9MuPjBDx/WnpTJ0EGhStyfE7hug8g85Y3Ju9oTsM4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f0946fa5f1fb876a9dc2e1850d9d3a4e3f914092",
+        "rev": "a58390ab6f1aa810eb8e0f0fc74230e7cc06de03",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-24.11",
+        "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }
