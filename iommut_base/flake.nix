@@ -6,11 +6,42 @@
     libvfn.url = "github:SamsungDS/libvfn";
   };
 
+  nixConfig = {
+    builders = "ssh://nixbuilder@seneca x86_64-linux - 180 1 kvm,nixos-test,big-parallel,benchmark";
+    builders-use-substituters = true;
+  };
+
   outputs = { self, nixpkgs, libvfn, ... }:
     let
       system = "x86_64-linux";
 
       overlay = final: prev: {
+        customKernelSrc = prev.fetchgit {
+          url = "https://github.com/Joelgranados/linux";
+          rev = "0ff41df1cb268fc69e703a08a57ee14ae967d0ca";
+          sha256 = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
+        };
+        customKernel = prev.linuxKernel.kernels.linux_6_12.override {
+          src = final.customKernelSrc;
+          version = "6.12-custom";
+          modDirVersion = "6.12.0-custom";
+          structuredExtraConfig = with prev.lib.kernel; {
+            # VirtioFS support
+            VIRTIO_FS = yes;
+            FUSE_FS = yes;
+            VIRTIO = yes;
+            VIRTIO_PCI = yes;
+            VIRTIO_MMIO = yes;
+
+            # RAM disk support
+            BLK_DEV_RAM = yes;
+            BLK_DEV_RAM_COUNT = freeform "16";
+            BLK_DEV_RAM_SIZE = freeform "65536";
+
+            TMPFS = yes;
+            TMPFS_POSIX_ACL = yes;
+          };
+        };
         qemu = prev.qemu.overrideAttrs (oldAttrs: {
           src = prev.fetchurl {
             # Release created with qemu's scripts/archive-source.sh
@@ -84,6 +115,7 @@
         qemu-iommut = pkgs.qemu;
         vmctl-iommut = pkgs.vmctl;
         libvfn = customLibvfn;
+        customKernel = pkgs.customKernel;
         default = pkgs.symlinkJoin {
           name = "iommut base testing";
           paths = [ pkgs.qemu pkgs.vmctl customLibvfn ];
@@ -96,8 +128,13 @@
           pkgs.vmctl
           customLibvfn
           pkgs.virtiofsd
+          pkgs.customKernel
         ];
         packages = self.devShells.${system}.default.shellPkgs;
+
+        shellHook = ''
+          echo "Kernel package ${pkgs.customKernel}"
+        '';
       };
     };
 }
