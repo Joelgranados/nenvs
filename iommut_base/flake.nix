@@ -14,10 +14,11 @@
   outputs = { self, nixpkgs, libvfn, ... }:
     let
       system = "x86_64-linux";
+      joelgit = "https://github.com/Joelgranados";
 
       overlay = final: prev: {
         customKernelSrc = prev.fetchgit {
-          url = "https://github.com/Joelgranados/linux";
+          url = "${joelgit}/linux";
           rev = "0ff41df1cb268fc69e703a08a57ee14ae967d0ca";
           sha256 = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
         };
@@ -45,7 +46,7 @@
         qemu = prev.qemu.overrideAttrs (oldAttrs: {
           src = prev.fetchurl {
             # Release created with qemu's scripts/archive-source.sh
-            url = "https://github.com/Joelgranados/qemu/releases/download/jag%2Fiommut-v20250813/iommut-v20250813.tar.gz";
+            url = "${joelgit}/qemu/releases/download/jag%2Fiommut-v20250813/iommut-v20250813.tar.gz";
             sha256 = "sha256:400040b9f251a4724621982ea6840c3f55dad6b88553b1a4537abc79250fa4c5";
           };
           pname = "qemu-iommut";
