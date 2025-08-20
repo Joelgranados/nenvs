@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "iommut": {
+      "inputs": {
+        "libvfn": "libvfn",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1755691612,
+        "narHash": "sha256-CVxuKq2flXGWkgro1o69Ak48Mkk2QYx+rYrED8oeydQ=",
+        "owner": "SamsungDS",
+        "repo": "iommutests",
+        "rev": "d33ea4160aa779c1cff9e2e6cd0fa633ef7eca27",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SamsungDS",
+        "repo": "iommutests",
+        "rev": "d33ea4160aa779c1cff9e2e6cd0fa633ef7eca27",
+        "type": "github"
+      }
+    },
     "libvfn": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -51,10 +71,26 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1755593991,
+        "narHash": "sha256-BA9MuPjBDx/WnpTJ0EGhStyfE7hug8g85Y3Ju9oTsM4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a58390ab6f1aa810eb8e0f0fc74230e7cc06de03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "libvfn": "libvfn",
-        "nixpkgs": "nixpkgs_2"
+        "iommut": "iommut",
+        "nixpkgs": "nixpkgs_3"
       }
     }
   },

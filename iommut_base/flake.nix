@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    libvfn.url = "github:Joelgranados/libvfn/7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
+    iommut.url = "github:SamsungDS/iommutests/d33ea4160aa779c1cff9e2e6cd0fa633ef7eca27";
   };
 
   nixConfig = {
@@ -11,7 +11,7 @@
     builders-use-substituters = true;
   };
 
-  outputs = { self, nixpkgs, libvfn, ... }:
+  outputs = { self, nixpkgs, iommut, ... }:
     let
       system = "x86_64-linux";
       joelgit = "https://github.com/Joelgranados";
@@ -115,7 +115,7 @@
 
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = [
-          libvfn.packages.${system}.default
+          iommut.packages.${system}.default
           pkgs.qemu
           pkgs.vmctl
           pkgs.virtiofsd
