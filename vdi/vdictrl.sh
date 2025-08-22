@@ -88,8 +88,8 @@ get_vdi_opts()
 vdi_start()
 {
   echo "Msg: Starting VDI $vdi_name"
-  systemctl restart libvirtd
-  systemctl restart virtlogd
+  sudo systemctl restart libvirtd
+  sudo systemctl restart virtlogd
 
   $vdi_virsh_cmd start $vdi_name &> /dev/null
   $vdi_virtmgr_cmd --show-domain-console $vdi_name &> /dev/null
