@@ -20,7 +20,10 @@
       devShells.${system}.default = pkgs.mkShell {
         packages = aiagent_base.devShells.${system}.default.shellPkgs;
 
-        shellHook = aiagent_base.devShells.${system}.default.shellHook
+        shellHook = ''
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(CLAUDE)"
+        ''
+        + aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };

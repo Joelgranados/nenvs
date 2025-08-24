@@ -24,7 +24,6 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(CLAUDE)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             alias claude='bwrap \
               --die-with-parent \
