@@ -5,11 +5,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    ai_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
+    aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
   };
 
-  outputs = { self, nixpkgs, ai_base, env_shell, ... }:
+  outputs = { self, nixpkgs, aiagent_base, env_shell, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -18,9 +18,9 @@
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
-        packages = ai_base.devShells.${system}.default.shellPkgs;
+        packages = aiagent_base.devShells.${system}.default.shellPkgs;
 
-        shellHook = ai_base.devShells.${system}.default.shellHook
+        shellHook = aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };
