@@ -8,10 +8,10 @@
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     kernel_base.url = "github:Joelgranados/nenvs?dir=kernel_base";
     krc.url = "github:Joelgranados/nenvs?dir=krc";
-    claude.url = "github:Joelgranados/nenvs?dir=claude";
+    aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
 
-  outputs = { self, nixpkgs, env_shell, kernel_base, krc, claude, ... }:
+  outputs = { self, nixpkgs, env_shell, kernel_base, krc, aiagent_base, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -24,12 +24,13 @@
         ]
         ++ krc.devShells.${system}.default.shellPkgs
         ++ kernel_base.devShells.${system}.default.shellPkgs
-        ++ claude.devShells.${system}.default.shellPkgs ;
+        ++ aiagent_base.devShells.${system}.default.shellPkgs ;
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(KERNEL)"
         ''
         + kernel_base.devShells.${system}.default.shellHook
+        + aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };

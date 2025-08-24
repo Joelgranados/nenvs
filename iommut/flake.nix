@@ -8,10 +8,10 @@
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     iommut_base.url = "github:Joelgranados/nenvs?dir=iommut_base";
     libvfn.url = "github:Joelgranados/libvfn/7766ed4d1fd0e2a73e28b686735cb77abe19ff2b";
-    claude.url = "github:Joelgranados/nenvs?dir=claude";
+    aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
 
-  outputs = { self, nixpkgs, env_shell, iommut_base, claude, libvfn, ... }:
+  outputs = { self, nixpkgs, env_shell, iommut_base, aiagent_base, libvfn, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -38,7 +38,7 @@
           clang-tools
           man-pages
           linuxHeaders
-        ] ++ claude.devShells.${system}.default.shellPkgs
+        ] ++ aiagent_base.devShells.${system}.default.shellPkgs
         ++ iommut_base.devShells.${system}.default.shellPkgs ;
         hardeningDisable = ["fortify"];
 
@@ -50,6 +50,7 @@
           "
         ''
         + iommut_base.devShells.${system}.default.shellHook
+        + aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };

@@ -6,10 +6,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
-    claude.url = "github:Joelgranados/nenvs?dir=claude";
+    aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
 
-  outputs = { self, nixpkgs, env_shell, claude, ... }:
+  outputs = { self, nixpkgs, env_shell, aiagent_base, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -18,7 +18,7 @@
         shellPkgs = with pkgs;
         [
           just
-        ] ++ claude.devShells.${system}.default.shellPkgs;
+        ] ++ aiagent_base.devShells.${system}.default.shellPkgs;
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
@@ -27,6 +27,7 @@
             cd ~/src/nenvs
           "
         ''
+        + aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };
