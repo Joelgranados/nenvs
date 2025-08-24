@@ -10,6 +10,7 @@ _registries:
   dirs=`find . -maxdepth 1 -type d \
     ! -name '.' ! -name 'test' ! -name '.git' ! -name 'kernel_base' \
     ! -name 'qemu_base' ! -name 'krc' ! -name iommut_base \
+    ! -name 'aiagent_base \
     -printf '%f\n'`;
   for dir in $dirs; do
     if [[ ! -v first_loop ]]; then
