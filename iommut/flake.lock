@@ -26,11 +26,11 @@
       },
       "locked": {
         "dir": "env_shell",
-        "lastModified": 1755760572,
-        "narHash": "sha256-EexLJO+d7m4Tl4llb+1Iu1mxASVJI2w+eqNmKNJBNww=",
+        "lastModified": 1756018782,
+        "narHash": "sha256-cHjL6SGZAl7eSfsGz49uEv/QwmdTCehBKNEq0p2iUW8=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "f301032f989129ba0168739293fc2b4b6f9d0d45",
+        "rev": "a41fdf816837c7867bd903748f4fe3ea8ad9a80a",
         "type": "github"
       },
       "original": {
@@ -67,11 +67,11 @@
       },
       "locked": {
         "dir": "iommut_base",
-        "lastModified": 1755760675,
-        "narHash": "sha256-9giDTYaZ0eAt5z4DUePlRf6jtWXb9Jz/9qTtEN6X1zI=",
+        "lastModified": 1756018782,
+        "narHash": "sha256-cHjL6SGZAl7eSfsGz49uEv/QwmdTCehBKNEq0p2iUW8=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "c6f7aab5a5ae918e6731abfe95d4bc4207951c59",
+        "rev": "a41fdf816837c7867bd903748f4fe3ea8ad9a80a",
         "type": "github"
       },
       "original": {
@@ -215,11 +215,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1755593991,
-        "narHash": "sha256-BA9MuPjBDx/WnpTJ0EGhStyfE7hug8g85Y3Ju9oTsM4=",
+        "lastModified": 1755922037,
+        "narHash": "sha256-wY1+2JPH0ZZC4BQefoZw/k+3+DowFyfOxv17CN/idKs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a58390ab6f1aa810eb8e0f0fc74230e7cc06de03",
+        "rev": "b1b3291469652d5a2edb0becc4ef0246fff97a7c",
         "type": "github"
       },
       "original": {
