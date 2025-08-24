@@ -25,6 +25,7 @@
 
         shellHook = ''
           NIX_ENV_SHELL_ZSHRC_PREFIX="
+            ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
             alias claude='bwrap \
               --die-with-parent \
               --new-session \
