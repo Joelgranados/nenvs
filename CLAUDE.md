@@ -88,3 +88,14 @@ Key environment variables used across environments:
 4. Use VDI environments for graphical virtual machine management
 5. Each environment automatically configures its shell with appropriate tools
    and settings
+
+## Code Style Guidelines
+
+- Wrap lines that exceed 90 characters for better readability
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only
+create documentation files if explicitly requested by the User.
