@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "iommut": {
+    "iommutests": {
       "inputs": {
         "libvfn": "libvfn",
         "nixpkgs": "nixpkgs_2"
@@ -73,11 +73,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1755593991,
-        "narHash": "sha256-BA9MuPjBDx/WnpTJ0EGhStyfE7hug8g85Y3Ju9oTsM4=",
+        "lastModified": 1755922037,
+        "narHash": "sha256-wY1+2JPH0ZZC4BQefoZw/k+3+DowFyfOxv17CN/idKs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a58390ab6f1aa810eb8e0f0fc74230e7cc06de03",
+        "rev": "b1b3291469652d5a2edb0becc4ef0246fff97a7c",
         "type": "github"
       },
       "original": {
@@ -89,7 +89,7 @@
     },
     "root": {
       "inputs": {
-        "iommut": "iommut",
+        "iommutests": "iommutests",
         "nixpkgs": "nixpkgs_3"
       }
     }
