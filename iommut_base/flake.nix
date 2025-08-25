@@ -103,8 +103,10 @@
             install -Dm644 iommutci.conf -t "$out/etc/iommuci/"
             install -Dm644 iommutci.base.nix -t "$out/etc/iommuci/"
 
-            # Install executable to bin
-            install -Dm755 iommutci.test.sh "$out/bin/iommutci.test.sh"
+            # Install executable to bin with CONFDIR replacement
+            sed 's|: "\$\{CONFDIR:=.*\}"|: "\$\{CONFDIR:="$out/etc/iommuci"\}"|' \
+                iommutci.test.sh > "$out/bin/iommutci.test.sh"
+            chmod +x "$out/bin/iommutci.test.sh"
 
             runHook postInstall
           '';
