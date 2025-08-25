@@ -6,11 +6,6 @@
     iommut.url = "github:SamsungDS/iommutests/cdbd312e658d62991c4390f3b478ff3bab457c5a";
   };
 
-  nixConfig = {
-    builders = "ssh://nixbuilder@seneca x86_64-linux - 180 1 kvm,nixos-test,big-parallel,benchmark";
-    builders-use-substituters = true;
-  };
-
   outputs = { self, nixpkgs, iommut, ... }:
     let
       system = "x86_64-linux";
