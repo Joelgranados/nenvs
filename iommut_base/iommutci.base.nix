@@ -6,10 +6,10 @@
 	description = "A system expression for vmctl";
 	inputs = { 
 		nixpkgs.url = "nixpkgs/nixos-24.11"; 
-		iommut.url = "github:SamsungDS/iommutests";
+		iommutests.url = "github:SamsungDS/iommutests";
 	};
 
-	outputs = { nixpkgs, iommut, ... }: 
+	outputs = { nixpkgs, iommutests, ... }: 
 	let
 		vmConfig = { pkgs, lib, modulesPath, ... }: {
 			imports = [ (modulesPath + "/profiles/minimal.nix") ];
@@ -71,7 +71,7 @@
 					pkgs.pciutils
 					pkgs.perl
 					pkgs.gnumake
-					iommut.packages.${pkgs.system}.default
+					iommutests.packages.${pkgs.system}.default
 				];
 			};
 		};
