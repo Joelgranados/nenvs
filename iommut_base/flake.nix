@@ -90,6 +90,25 @@
             runHook postInstall
           '';
         });
+        iommuci = prev.stdenv.mkDerivation {
+          pname = "iommuci";
+          version = "0.0.1";
+
+          src = ./.;
+
+          installPhase = ''
+            runHook preInstall
+
+            # Install config files to etc
+            install -Dm644 iommutci.conf -t "$out/etc/iommuci/"
+            install -Dm644 iommutci.base.nix -t "$out/etc/iommuci/"
+
+            # Install executable to bin
+            install -Dm755 iommutci.test.sh "$out/bin/iommutci.test.sh"
+
+            runHook postInstall
+          '';
+        };
       };
 
       pkgs = import nixpkgs {
@@ -102,9 +121,10 @@
         qemu-iommut = pkgs.qemu;
         vmctl-iommut = pkgs.vmctl;
         customKernel = pkgs.customKernel;
+        iommuci = pkgs.iommuci;
         default = pkgs.symlinkJoin {
           name = "iommut base testing";
-          paths = [ pkgs.qemu pkgs.vmctl ];
+          paths = [ pkgs.qemu pkgs.vmctl pkgs.iommuci ];
         };
       };
 
@@ -115,6 +135,7 @@
           pkgs.vmctl
           pkgs.virtiofsd
           pkgs.customKernel
+          pkgs.iommuci
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
