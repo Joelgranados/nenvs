@@ -3,10 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    iommut.url = "github:SamsungDS/iommutests/cdbd312e658d62991c4390f3b478ff3bab457c5a";
+    iommutests.url = "github:SamsungDS/iommutests/cdbd312e658d62991c4390f3b478ff3bab457c5a";
   };
 
-  outputs = { self, nixpkgs, iommut, ... }:
+  outputs = { self, nixpkgs, iommutests, ... }:
     let
       system = "x86_64-linux";
       joelgit = "https://github.com/Joelgranados";
@@ -110,7 +110,7 @@
 
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = [
-          iommut.packages.${system}.default
+          iommutests.packages.${system}.default
           pkgs.qemu
           pkgs.vmctl
           pkgs.virtiofsd
