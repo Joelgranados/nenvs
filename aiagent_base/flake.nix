@@ -31,7 +31,7 @@
               --new-session \
               --unshare-pid \
               --share-net \
-              --bind ''$(pwd) /sandbox \
+              --bind \''$(pwd) /sandbox \
               --chdir /sandbox \
               --proc /proc \
               --ro-bind /nix /nix \
