@@ -6,17 +6,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1755760415,
-        "narHash": "sha256-mkY3oNvzIAb9zVH8XyyEMlmnSbCOsEFN8LpMB4lSfOw=",
+        "lastModified": 1756198744,
+        "narHash": "sha256-uAPHJc3Z1DFDXgSnsPkTStJD7Oqm/6g9BUGZvWlywQs=",
         "owner": "SamsungDS",
         "repo": "iommutests",
-        "rev": "cdbd312e658d62991c4390f3b478ff3bab457c5a",
+        "rev": "2e1cee880076607a334085faad88a242f9e3e745",
         "type": "github"
       },
       "original": {
         "owner": "SamsungDS",
         "repo": "iommutests",
-        "rev": "cdbd312e658d62991c4390f3b478ff3bab457c5a",
+        "rev": "2e1cee880076607a334085faad88a242f9e3e745",
         "type": "github"
       }
     },
