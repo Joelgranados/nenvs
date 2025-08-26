@@ -6,11 +6,11 @@
       },
       "locked": {
         "dir": "aiagent_base",
-        "lastModified": 1756115672,
-        "narHash": "sha256-aDmIVlHcgDnOqePl4NxIw9dScORRytdykZMH52xCCCU=",
+        "lastModified": 1756193924,
+        "narHash": "sha256-O0D4hOh9+F05L7vnJQGKhkK/ZVAKkOgIZNor737ca/Y=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "6a570bfd1bfa1c90c394be5d0bf3c90286729a58",
+        "rev": "adb9573c9454799f9f1ef255ab71b4720d143963",
         "type": "github"
       },
       "original": {
@@ -26,11 +26,11 @@
       },
       "locked": {
         "dir": "env_shell",
-        "lastModified": 1756018782,
-        "narHash": "sha256-cHjL6SGZAl7eSfsGz49uEv/QwmdTCehBKNEq0p2iUW8=",
+        "lastModified": 1756193924,
+        "narHash": "sha256-O0D4hOh9+F05L7vnJQGKhkK/ZVAKkOgIZNor737ca/Y=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "a41fdf816837c7867bd903748f4fe3ea8ad9a80a",
+        "rev": "adb9573c9454799f9f1ef255ab71b4720d143963",
         "type": "github"
       },
       "original": {
