@@ -4,7 +4,7 @@
   description = "nix envs flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
