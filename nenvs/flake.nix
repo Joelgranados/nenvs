@@ -17,6 +17,7 @@
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
         [
+          bash-language-server
           just
         ] ++ aiagent_base.devShells.${system}.default.shellPkgs;
         packages = self.devShells.${system}.default.shellPkgs;
