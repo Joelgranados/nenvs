@@ -92,6 +92,7 @@ Key environment variables used across environments:
 ## Code Style Guidelines
 
 - Wrap lines that exceed 90 characters for better readability
+- Never create space-only lines in code - use proper line breaks instead
 
 # important-instruction-reminders
 Do what has been asked; nothing more, nothing less.
