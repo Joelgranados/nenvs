@@ -1,5 +1,5 @@
 {
-  description = "iommu testing base env";
+  description = "iommu continuous integration environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -99,11 +99,11 @@
           installPhase = ''
             runHook preInstall
 
-            install -Dm644 iommutci.base.nix -t "$out/etc/iommuci/"
+            install -Dm644 iommuci.nix -t "$out/etc/iommuci/"
             sed "s|: ...GUEST_KERNEL_CUSTOM_DIR:=.*|GUEST_KERNEL_CUSTOM_DIR=${final.customKernel}|" \
-                iommutci.conf | install -Dm644 /dev/stdin "$out/etc/iommuci/iommutci.conf"
+                iommuci.conf | install -Dm644 /dev/stdin "$out/etc/iommuci/iommuci.conf"
             sed "s|: ...CONFDIR:=.*|CONFDIR=$out/etc/iommuci|" \
-                iommutci.test.sh | install -Dm755 /dev/stdin "$out/bin/iommutci.test.sh"
+                iommuci.sh | install -Dm755 /dev/stdin "$out/bin/iommuci"
 
             runHook postInstall
           '';

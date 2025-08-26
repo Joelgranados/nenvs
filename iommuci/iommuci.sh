@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : "${CONFDIR:="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"}"
-: "${CONF:="${CONFDIR}/iommutci.conf"}"
+: "${CONF:="${CONFDIR}/iommuci.conf"}"
 : "${EXIT_ON_ERROR:=0}"
 
 _exec() {
