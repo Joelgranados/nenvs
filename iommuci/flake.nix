@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    iommutests.url = "github:SamsungDS/iommutests/cdbd312e658d62991c4390f3b478ff3bab457c5a";
+    iommutests.url = "github:SamsungDS/iommutests/2e1cee880076607a334085faad88a242f9e3e745";
   };
 
   outputs = { self, nixpkgs, iommutests, ... }:
