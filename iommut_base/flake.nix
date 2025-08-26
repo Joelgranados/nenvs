@@ -100,11 +100,16 @@
             runHook preInstall
 
             mkdir -p $out/bin $out/etc
-            install -Dm644 iommutci.conf -t "$out/etc/iommuci/"
+
+            # Replace hardcoded GUEST_KERNEL_CUSTOM_DIR with actual customKernel path
+            sed "s|: ...GUEST_KERNEL_CUSTOM_DIR:=.*|GUEST_KERNEL_CUSTOM_DIR=${final.customKernel}|" \
+                iommutci.conf > "$out/etc/iommuci/iommutci.conf"
+            chmod 644 "$out/etc/iommuci/iommutci.conf"
+
             install -Dm644 iommutci.base.nix -t "$out/etc/iommuci/"
 
             # Install executable to bin with CONFDIR replacement
-            sed "s|.*CONFDIR:=.*|CONFDIR=$out/etc/iommuci|" \
+            sed "s|: ...CONFDIR:=.*|CONFDIR=$out/etc/iommuci|" \
                 iommutci.test.sh > "$out/bin/iommutci.test.sh"
             chmod +x "$out/bin/iommutci.test.sh"
 
