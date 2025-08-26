@@ -99,7 +99,7 @@
           installPhase = ''
             runHook preInstall
 
-            mkdir -p $out/bin $out/etc
+            mkdir -p $out/bin $out/etc/iommuci
 
             # Replace hardcoded GUEST_KERNEL_CUSTOM_DIR with actual customKernel path
             sed "s|: ...GUEST_KERNEL_CUSTOM_DIR:=.*|GUEST_KERNEL_CUSTOM_DIR=${final.customKernel}|" \
