@@ -20,7 +20,7 @@
           export CC="ccache gcc"
           export CXX="ccache g++"
           alias make="make CC='"$CC"'"
-          export CCACHE_DIR=/home/joel/.cache/.ccache
+          export CCACHE_DIR=$HOME/.cache/.ccache
           mkdir -p $CCACHE_DIR
         '';
       };
