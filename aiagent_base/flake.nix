@@ -41,11 +41,13 @@
               --ro-bind /etc /etc \
               --ro-bind /lib /lib \
               --ro-bind /lib64 /lib64 \
+              --ro-bind $HOME/.gitconfig $HOME/.gitconfig
+              --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user
               --dev-bind /dev/null /dev/null \
               --bind /tmp /tmp \
-              --bind ~/.claude $HOME/.claude \
-              --bind ~/.claude.json $HOME/.claude.json \
-              --bind ~/.claude.json.backup $HOME/.claude.json.backup \
+              --bind $HOME/.claude $HOME/.claude \
+              --bind $HOME/.claude.json $HOME/.claude.json \
+              --bind $HOME/.claude.json.backup $HOME/.claude.json.backup \
               --setenv SHELL "${pkgs.bash}/bin/bash" \
               ${pkgs.claude-code}/bin/claude'
           "
