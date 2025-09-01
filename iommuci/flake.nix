@@ -41,11 +41,14 @@
         qemu = prev.qemu.overrideAttrs (oldAttrs: {
           src = prev.fetchurl {
             # Release created with qemu's scripts/archive-source.sh
-            url = "${joelgit}/qemu/releases/download/jag%2Fiommut-v20250813/iommut-v20250813.tar.gz";
-            sha256 = "sha256:400040b9f251a4724621982ea6840c3f55dad6b88553b1a4537abc79250fa4c5";
+            url = "${joelgit}/qemu/releases/download/jag%2Fiommut-v20250901/iommut-v20250901.tar.gz";
+            sha256 = "sha256:5027cb4e56c85e15008348a4a94c4c7fb066b5aa17210b3991bc0857c7fac108";
           };
           pname = "qemu-iommut";
           patches = [];
+          configureFlags = (oldAttrs.configureFlags or []) ++ [
+            "--target-list=x86_64-softmmu,aarch64-softmmu"
+          ];
         });
         vmctl = prev.vmctl.overrideAttrs (oldAttrs: {
           src = prev.fetchgit {
