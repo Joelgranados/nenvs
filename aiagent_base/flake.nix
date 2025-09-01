@@ -20,6 +20,7 @@
           pkgs.claude-code
           pkgs.bubblewrap
           pkgs.bash
+          pkgs.git
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
