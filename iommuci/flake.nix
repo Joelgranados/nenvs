@@ -22,6 +22,16 @@
           version = "6.12-custom";
           modDirVersion = "6.12.0-custom";
           structuredExtraConfig = with prev.lib.kernel; {
+
+            # For IOPF
+            VFIO_DEVICE_CDEV = yes;
+            INTEL_IOMMU = yes;
+            INTEL_IOMMU_SVM = no;
+            INTEL_IOMMU_DEFAULT_ON = yes;
+            INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON = yes;
+            IOMMU_IOPF = yes;
+            IOMMUFD = yes;
+
             # VirtioFS support
             VIRTIO_FS = yes;
             FUSE_FS = yes;
