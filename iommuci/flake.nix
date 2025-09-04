@@ -12,42 +12,16 @@
       joelgit = "https://github.com/Joelgranados";
 
       overlay = final: prev: {
-        customKernelSrc = prev.fetchgit {
-          url = "${joelgit}/linux";
-          rev = "0ff41df1cb268fc69e703a08a57ee14ae967d0ca";
-          sha256 = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
-        };
-        customKernel = prev.linuxKernel.kernels.linux_6_12.override {
-          src = final.customKernelSrc;
-          version = "6.12-custom";
-          modDirVersion = "6.12.0-custom";
-          structuredExtraConfig = with prev.lib.kernel; {
-
-            # For IOPF
-            VFIO_DEVICE_CDEV = yes;
-            INTEL_IOMMU = yes;
-            INTEL_IOMMU_SVM = no;
-            INTEL_IOMMU_DEFAULT_ON = yes;
-            INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON = yes;
-            IOMMU_IOPF = yes;
-            IOMMUFD = yes;
-
-            # VirtioFS support
-            VIRTIO_FS = yes;
-            FUSE_FS = yes;
-            VIRTIO = yes;
-            VIRTIO_PCI = yes;
-            VIRTIO_MMIO = yes;
-
-            # RAM disk support
-            BLK_DEV_RAM = yes;
-            BLK_DEV_RAM_COUNT = freeform "16";
-            BLK_DEV_RAM_SIZE = freeform "65536";
-
-            TMPFS = yes;
-            TMPFS_POSIX_ACL = yes;
+        customKernel = (prev.linuxPackages_custom {
+          src = prev.fetchgit {
+            url = "${joelgit}/linux";
+            rev = "0ff41df1cb268fc69e703a08a57ee14ae967d0ca";
+            sha256 = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
           };
-        };
+          version = "6.15-custom";
+          modDirVersion = "6.15.0";
+          configfile = ./kernel.conf;
+        }).kernel;
         qemu = prev.qemu.overrideAttrs (oldAttrs: {
           src = prev.fetchurl {
             # Release created with qemu's scripts/archive-source.sh
@@ -96,6 +70,8 @@
                   prev.musl.dev
                   prev.cpio
                   prev.findutils
+                  prev.procps
+                  prev.gnugrep
                 ]
               }"
 
