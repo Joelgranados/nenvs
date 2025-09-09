@@ -37,8 +37,8 @@
         vmctl = prev.vmctl.overrideAttrs (oldAttrs: {
           src = prev.fetchgit {
             url = "https://github.com/SamsungDS/vmctl";
-            rev = "df1cd750366c8cfb45716795c4885221c131a22b";
-            sha256 = "sha256-Kjc0TxA3I4wIGvh8imwNTg+EgeEH/pqe6F6dv2cpODk=";
+            rev = "11943089c53b974e80cab2519f5517e342e4bfc4";
+            sha256 = "sha256-Re54w51esurJGwH3utgvKizDR99cWMgJxnMg3HQ8z6E=";
           };
           pname = "vmctl-iommut";
           installPhase = ''
