@@ -15,8 +15,8 @@
         customKernel = (prev.linuxPackages_custom {
           src = prev.fetchgit {
             url = "${joelgit}/linux";
-            rev = "0ff41df1cb268fc69e703a08a57ee14ae967d0ca";
-            sha256 = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
+            rev = "46bfe732f05e978dde094451887a325884082788";
+            sha256 = "sha256-vm8nwEDiOmVRyU/wxe47ZsZyEhxiKf/A2qHI26Kf83I=";
           };
           version = "6.15-custom";
           modDirVersion = "6.15.0";
@@ -25,8 +25,8 @@
         qemu = prev.qemu.overrideAttrs (oldAttrs: {
           src = prev.fetchurl {
             # Release created with qemu's scripts/archive-source.sh
-            url = "${joelgit}/qemu/releases/download/jag%2Fiommut-v20250901/iommut-v20250901.tar.gz";
-            sha256 = "sha256:5027cb4e56c85e15008348a4a94c4c7fb066b5aa17210b3991bc0857c7fac108";
+            url = "${joelgit}/qemu/releases/download/jag%2Fiommut-v20250909/iommut-v20250909.tar.gz";
+            sha256 = "sha256:4440d9ebe2061db3984ca39ca8fd2f914729c65734ac582875f5b2c125975d87";
           };
           pname = "qemu-iommut";
           patches = [];
