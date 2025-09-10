@@ -43,6 +43,7 @@
               --ro-bind /lib64 /lib64 \
               --ro-bind $HOME/.gitconfig $HOME/.gitconfig \
               --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user \
+              --ro-bind $HOME/src $HOME/src \
               --dev-bind /dev/null /dev/null \
               --bind /tmp /tmp \
               --bind $HOME/.claude $HOME/.claude \
