@@ -6,9 +6,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
+    krc.url = "github:Joelgranados/nenvs?dir=krc";
   };
 
-  outputs = { self, nixpkgs, env_shell, ... }:
+  outputs = { self, nixpkgs, env_shell, krc, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -31,7 +32,10 @@
           dracut
           clang
           musl
-        ];
+
+          krc.packages.${system}.default
+        ]
+        ++ krc.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
