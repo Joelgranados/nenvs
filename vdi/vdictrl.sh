@@ -89,7 +89,16 @@ vdi_start()
 {
   echo "Msg: Starting VDI $vdi_name"
   sudo systemctl restart libvirtd
+  if [ $? != 0 ]; then
+    echo "Msg: Could not restart libvirt... exiting"
+    exit 1
+  fi
+
   sudo systemctl restart virtlogd
+  if [ $? != 0 ]; then
+    echo "Msg: Could not restart virtlogd... exiting"
+    exit 1
+  fi
 
   $vdi_virsh_cmd start $vdi_name &> /dev/null
   $vdi_virtmgr_cmd --show-domain-console $vdi_name &> /dev/null
