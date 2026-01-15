@@ -4,7 +4,7 @@
   description = "journaling flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
@@ -23,6 +23,7 @@
           clang-tools
           pyright
           unzip
+          rich-cli
         ] ++ aiagent_base.devShells.${system}.default.shellPkgs;
         packages = self.devShells.${system}.default.shellPkgs;
 
