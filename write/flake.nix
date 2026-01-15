@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-only */
 
 {
-  description = "journaling flake";
+  description = "Writting flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -28,7 +28,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(JOURNAL)"
+          NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(WRITE)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             cd ~/src/journal
           "
