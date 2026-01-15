@@ -6,11 +6,11 @@
       },
       "locked": {
         "dir": "aiagent_base",
-        "lastModified": 1768219418,
-        "narHash": "sha256-q7mhFPKR1/hQCHXafpWEvADNI4W/F4WlInrLlyhOsJQ=",
+        "lastModified": 1768471408,
+        "narHash": "sha256-Oc7v1JHrJ83yI9wwHfb4qnABi/m0qgmkH6IeBcUDn7Y=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "c8b8fe3c1dbc2194052070ef9020599622de8872",
+        "rev": "2037fbd9e337f681fe2ed6aed1a0d4142b120d5d",
         "type": "github"
       },
       "original": {
