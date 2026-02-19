@@ -44,6 +44,10 @@
             alias mailsynck='~/Mail/.config/sync.sh';
             alias lei-stage-a='lei q -v -o ~/Mail/fastmail/lei-staging --dedup=mid -t --no-save -I https://lore.kernel.org/all';
             alias lei-stage='lei q -v -o ~/Mail/fastmail/lei-staging --dedup=mid -t --no-save';
+
+            # Avoid confusions about where the tmpdir is
+            lei daemon-kill
+            lei daemon-start
           "
         ''
         + env_shell.devShells.${system}.default.shellHook
