@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+"""
+lei-q-db - Manage a persistent database of lei queries with active/inactive state.
+
+Usage:
+    lei-q-db list
+    lei-q-db create NAME QUERY
+    lei-q-db activate NAME
+    lei-q-db deactivate NAME
+    lei-q-db delete NAME
+    lei-q-db run NAME
+"""
+
+import sys
+import shlex
+import subprocess
+import textwrap
+import argparse
+from dataclasses import dataclass
+from pathlib import Path
+
+
+# ---------------------------------------------------------------------------
+# Configuration - adjust STATE_FILE to change the default database location
+# ---------------------------------------------------------------------------
+
+STATE_FILE = Path("~/.local/share/lei/queries.db").expanduser()
+
+
+# ---------------------------------------------------------------------------
+# Data model
+# ---------------------------------------------------------------------------
+
+ACTIVE   = "active"
+INACTIVE = "inactive"
+
+
+@dataclass
+class Query:
+    name: str
+    active: bool
+    query: str
+
+    @property
+    def status(self) -> str:
+        return ACTIVE if self.active else INACTIVE
+
+
+# ---------------------------------------------------------------------------
+# File I/O
+# ---------------------------------------------------------------------------
+
+_HEADER = """\
+# lei-q-db query database
+# Format: STATUS  NAME  QUERY
+#   STATUS : active | inactive
+#   NAME   : identifier (no spaces)
+#   QUERY  : lei query string (everything after NAME)
+#
+"""
+
+
+def load_queries(path: Path) -> list[Query]:
+    """Load queries from the database file. Returns empty list if file doesn't exist."""
+    if not path.exists():
+        return []
+    queries: list[Query] = []
+    with path.open() as f:
+        for lineno, raw in enumerate(f, 1):
+            line = raw.rstrip("\n")
+            if not line or line.lstrip().startswith("#"):
+                continue
+            parts = line.split(None, 2)
+            if len(parts) < 3:
+                print(f"Warning: ignoring malformed line {lineno}: {line!r}", file=sys.stderr)
+                continue
+            status, name, query = parts
+            if status not in (ACTIVE, INACTIVE):
+                print(f"Warning: unknown status {status!r} on line {lineno}, skipping", file=sys.stderr)
+                continue
+            queries.append(Query(name=name, active=(status == ACTIVE), query=query))
+    return queries
+
+
+def save_queries(path: Path, queries: list[Query]) -> None:
+    """Write queries back to the database file, preserving column alignment."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    name_w = max((len(q.name) for q in queries), default=1)
+    with path.open("w") as f:
+        f.write(_HEADER)
+        for q in queries:
+            f.write(f"{q.status:<10}  {q.name:<{name_w}}  {q.query}\n")
+
+
+def _find(queries: list[Query], name: str) -> Query | None:
+    return next((q for q in queries if q.name == name), None)
+
+
+# ---------------------------------------------------------------------------
+# Commands
+# ---------------------------------------------------------------------------
+
+def cmd_list(queries: list[Query]) -> None:
+    if not queries:
+        print("No queries defined.")
+        return
+    name_w = max(len(q.name) for q in queries)
+    print(f"  {'NAME':<{name_w}}  QUERY")
+    print(f"  {'-' * name_w}  {'-' * 40}")
+    for q in queries:
+        marker = "*" if q.active else " "
+        print(f"[{marker}] {q.name:<{name_w}}  {q.query}")
+    n_active   = sum(1 for q in queries if q.active)
+    n_inactive = len(queries) - n_active
+    print(f"\n{len(queries)} total  ({n_active} active, {n_inactive} inactive)")
+
+
+def cmd_activate(queries: list[Query], name: str) -> None:
+    q = _find(queries, name)
+    if q is None:
+        sys.exit(f"Error: no query named {name!r}")
+    if q.active:
+        print(f"{name}: already active")
+    else:
+        q.active = True
+        print(f"{name}: activated")
+
+
+def cmd_deactivate(queries: list[Query], name: str) -> None:
+    q = _find(queries, name)
+    if q is None:
+        sys.exit(f"Error: no query named {name!r}")
+    if not q.active:
+        print(f"{name}: already inactive")
+    else:
+        q.active = False
+        print(f"{name}: deactivated")
+
+
+def cmd_create(queries: list[Query], name: str, query: str) -> None:
+    if " " in name:
+        sys.exit("Error: NAME must not contain spaces")
+    if _find(queries, name) is not None:
+        sys.exit(f"Error: query {name!r} already exists")
+    queries.append(Query(name=name, active=False, query=query))
+    print(f"{name}: created (inactive)")
+
+
+def cmd_delete(queries: list[Query], name: str) -> None:
+    if _find(queries, name) is None:
+        sys.exit(f"Error: no query named {name!r}")
+    queries[:] = [q for q in queries if q.name != name]
+    print(f"{name}: deleted")
+
+
+def _run_one(q: Query) -> int:
+    cmd = ["lei", "q"] + shlex.split(q.query)
+    print(f"Running [{q.name}]: {' '.join(cmd)}")
+    return subprocess.run(cmd).returncode
+
+
+def cmd_run(queries: list[Query], name: str | None) -> None:
+    if name is not None:
+        q = _find(queries, name)
+        if q is None:
+            sys.exit(f"Error: no query named {name!r}")
+        if not q.active:
+            print(f"Warning: {name!r} is inactive, running anyway", file=sys.stderr)
+        sys.exit(_run_one(q))
+    else:
+        active = [q for q in queries if q.active]
+        if not active:
+            sys.exit("No active queries to run.")
+        failed = []
+        for q in active:
+            rc = _run_one(q)
+            if rc != 0:
+                failed.append(q.name)
+        if failed:
+            print(f"\nFailed: {', '.join(failed)}", file=sys.stderr)
+            sys.exit(1)
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        prog="lei-q-db",
+        description="Manage a persistent database of lei queries with active/inactive state.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=textwrap.dedent(f"""\
+            examples:
+              lei-q-db list
+              lei-q-db create kernel-cfp '-o ~/Mail/lists -I https://lore.kernel.org/all s:"call for proposals"'
+              lei-q-db activate kernel-cfp
+              lei-q-db run kernel-cfp
+              lei-q-db deactivate kernel-cfp
+              lei-q-db delete kernel-cfp
+
+            database location (default): {STATE_FILE}
+        """),
+    )
+    parser.add_argument(
+        "--db", metavar="PATH", type=Path, default=STATE_FILE,
+        help=f"path to the query database file (default: {STATE_FILE})",
+    )
+
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    sub.add_parser("list", help="list all queries with their status (* = active)")
+
+    p = sub.add_parser("activate", help="activate a query by name")
+    p.add_argument("name")
+
+    p = sub.add_parser("deactivate", help="deactivate a query by name")
+    p.add_argument("name")
+
+    p = sub.add_parser("create", help="add a new query (starts as inactive)")
+    p.add_argument("name", help="identifier for the query (no spaces)")
+    p.add_argument("query", nargs="+", help="the lei query string")
+
+    p = sub.add_parser("delete", help="remove a query permanently")
+    p.add_argument("name")
+
+    p = sub.add_parser("run", help="execute a named query, or all active queries if no NAME given")
+    p.add_argument("name", nargs="?", default=None, help="query name (omit to run all active)")
+
+    args = parser.parse_args()
+    db_path: Path = args.db
+    queries = load_queries(db_path)
+    mutated = False
+
+    if args.command == "list":
+        cmd_list(queries)
+
+    elif args.command == "activate":
+        cmd_activate(queries, args.name)
+        mutated = True
+
+    elif args.command == "deactivate":
+        cmd_deactivate(queries, args.name)
+        mutated = True
+
+    elif args.command == "create":
+        cmd_create(queries, args.name, " ".join(args.query))
+        mutated = True
+
+    elif args.command == "delete":
+        cmd_delete(queries, args.name)
+        mutated = True
+
+    elif args.command == "run":
+        cmd_run(queries, args.name)  # exits internally
+
+    if mutated:
+        save_queries(db_path, queries)
+
+
+if __name__ == "__main__":
+    main()

@@ -13,6 +13,17 @@
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
     in {
+      packages.${system}.default = pkgs.stdenv.mkDerivation {
+        pname = "lei-q-db";
+        version = "0.0.1";
+        src = ./.;
+        installPhase = ''
+          mkdir -p $out/bin
+          cp lei-q-db $out/bin/lei-q-db
+          chmod +x $out/bin/lei-q-db
+        '';
+      };
+
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
         [
@@ -32,7 +43,8 @@
           zathura
           python311Packages.icalendar
         ];
-        packages = self.devShells.${system}.default.shellPkgs;
+        packages = self.devShells.${system}.default.shellPkgs
+          ++ [self.packages.${system}.default];
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(MAIL)"
