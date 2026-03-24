@@ -21,19 +21,12 @@
           pkgs.bubblewrap
           pkgs.bash
           pkgs.git
-          pkgs.go
-          pkgs.clang-tools
-          pkgs.pyright
-          pkgs.bash-language-server
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
-            export GOPATH=\$HOME/.local/share/go; \
-            export PATH=\$GOPATH/bin:\$PATH; \
-            go install github.com/isaacphi/mcp-language-server@latest 2>/dev/null; \
             alias claude='bwrap \
               --die-with-parent \
               --new-session \
@@ -51,7 +44,6 @@
               --ro-bind $HOME/.gitconfig $HOME/.gitconfig \
               --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user \
               --ro-bind $HOME/src $HOME/src \
-              --ro-bind \$GOPATH \$GOPATH \
               --dev-bind /dev/null /dev/null \
               --bind /tmp /tmp \
               --bind $HOME/.claude $HOME/.claude \
