@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-3.0-only
 
-
 BASENAME="$(basename "${BASH_SOURCE[0]}")"
-BASEDIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 
 USAGE="Usage: ${BASENAME} ARGS [OPTIONS]
 
@@ -15,7 +13,7 @@ Args: -n <vdi_name>
 Options:
   -c, --connect <URI>   connect URI. Passed along to virsh and
                         virt-manager. Defaults to qemu:///system
-  -a, --action          [start|stop] defaults to "start"
+  -a, --action          [start|stop] defaults to \"start\"
   -h, --help            Display this help
 "
 
@@ -85,33 +83,40 @@ get_vdi_opts()
   vdi_virtmgr_cmd="$(command -v virt-manager) --connect ${vdi_connect_uri}"
 }
 
+_exec() {
+  local cmd="$1"
+  if ! eval "${cmd}"; then
+    echo "Msg: Error: ${cmd}"
+    exit 1
+  else
+    echo "Msg: ${cmd}"
+  fi
+}
+
 vdi_start()
 {
+  local cmd=""
+
   echo "Msg: Starting VDI $vdi_name"
-  sudo systemctl restart libvirtd
-  if [ $? != 0 ]; then
-    echo "Msg: Could not restart libvirt... exiting"
-    exit 1
-  fi
 
-  sudo systemctl restart virtlogd
-  if [ $? != 0 ]; then
-    echo "Msg: Could not restart virtlogd... exiting"
-    exit 1
-  fi
+  cmd="sudo systemctl restart libvirtd"
+  _exec "${cmd}"
 
-  $vdi_virsh_cmd start $vdi_name &> /dev/null
-  $vdi_virtmgr_cmd --show-domain-console $vdi_name &> /dev/null
+  cmd="sudo systemctl restart virtlogd"
+  _exec "${cmd}"
+
+  $vdi_virsh_cmd start "$vdi_name" &> /dev/null
+  $vdi_virtmgr_cmd --show-domain-console "$vdi_name" &> /dev/null
 }
 
 vdi_stop()
 {
   echo "Msg: Shutting down $vdi_name";
-  $vdi_virsh_cmd shutdown $vdi_name &> /dev/null
+  $vdi_virsh_cmd shutdown "$vdi_name" &> /dev/null
 
   # Make sure it shut down
   for ((i=1; i<=5; i++)); do
-    if $vdi_virsh_cmd list --state-running --name | grep -q $vdi_name; then
+    if $vdi_virsh_cmd list --state-running --name | grep -q "$vdi_name"; then
       echo "Msg: ${vdi_name} is shut down."
       break
     fi
@@ -122,8 +127,14 @@ vdi_stop()
   if [ -n "$vdi_pid" ]; then
     echo "Msg: Closing window for $vdi_name"
     # Here we have a "Operation not permitted", but the window is still closed.
-    kill -s 9 $vdi_pid 2> /dev/null
+    kill -s 9 "$vdi_pid" 2> /dev/null
   fi
+
+  cmd="sudo systemctl stop libvirtd"
+  _exec "${cmd}"
+
+  cmd="sudo systemctl stop virtlogd"
+  _exec "${cmd}"
 }
 
 get_vdi_opts "$@"
