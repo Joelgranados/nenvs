@@ -33,9 +33,7 @@
             ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
             export GOPATH=\$HOME/.local/share/go; \
             export PATH=\$GOPATH/bin:\$PATH; \
-            echo 'Setting up MCP language server...'; \
             go install github.com/isaacphi/mcp-language-server@latest 2>/dev/null; \
-            echo 'MCP language server ready (clangd, pyright, bash-language-server available)'; \
             alias claude='bwrap \
               --die-with-parent \
               --new-session \
