@@ -51,7 +51,7 @@
               --ro-bind $HOME/.gitconfig $HOME/.gitconfig \
               --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user \
               --ro-bind $HOME/src $HOME/src \
-              --ro-bind $GOPATH $GOPATH \
+              --ro-bind ''$GOPATH ''$GOPATH \
               --dev-bind /dev/null /dev/null \
               --bind /tmp /tmp \
               --bind $HOME/.claude $HOME/.claude \
