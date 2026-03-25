@@ -47,7 +47,6 @@ get_krc_opts()
 {
   local short="x:e:vh"
   local long="cross-compile:,env:,verbose,skip-wait,help"
-  local active_env="kernel_base"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
     exit 1
@@ -98,7 +97,7 @@ get_krc_opts()
   HOST=$1; shift 1;
 
   # Update args after filtering out [OPTIONS]
-  cmd_args="$@"
+  cmd_args="$*"
 
   xcompile_cmds=""
   if [[ -v xcomp_arch ]]; then
@@ -113,6 +112,14 @@ get_krc_opts()
 
   MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
 
+  NIX_DEV_ARGS="--no-write-lock-file "
+  NIX_DEV_ARGS+="-i "
+  # https://www.kernel.org/doc/html/latest/kbuild/reproducible-builds.html#timestamps
+  NIX_DEV_ARGS+="-s KBUILD_BUILD_TIMESTAMP 0 "
+  NIX_DEV_ARGS+="-s KBUILD_BUILD_USER user "
+  NIX_DEV_ARGS+="-s KBUILD_BUILD_HOST host "
+  NIX_DEV_ARGS+="-s LOCALVERSION \"\" "
+
   HEREDOC_SCRIPT="
     # Adjust PATH for non-login shells connecting to non-nix hosts
     # with nix packages installed
@@ -120,15 +127,9 @@ get_krc_opts()
       PATH=\"~/.nix-profile/bin:/nix/var/nix/profiles/default/bin:\$PATH\"
     fi
 
-    # https://www.kernel.org/doc/html/latest/kbuild/reproducible-builds.html#timestamps
-    export KBUILD_BUILD_TIMESTAMP=0
-    export KBUILD_BUILD_USER=user
-    export KBUILD_BUILD_HOST=host
-    export LOCALVERSION=
-
     ${xcompile_cmds}
 
-    cd ${PWD} && nix develop --no-write-lock-file ${ENV_URL} --command bash -c \"${cmd_args}\"
+    cd ${PWD} && nix develop ${NIX_DEV_ARGS} ${ENV_URL} --command bash -c \"${cmd_args}\"
   "
 }
 
@@ -137,10 +138,10 @@ mutagen_cmd()
   local cmd=$1
 
   if [[ -v VERBOSE ]]; then
-    echo ${cmd}
+    echo "${cmd}"
   fi
-  eval ${cmd}
-  if [ $? != 0 ]; then
+  eval "${cmd}"
+  if ! eval "${cmd}"; then
     _usage "${USAGE}" 1
   fi
 }
@@ -165,19 +166,19 @@ mutagen_sync_nopause()
 
 remote_exec()
 {
-  mutagen_sync_pause ${MUT_SESS_NAME}
+  mutagen_sync_pause "${MUT_SESS_NAME}"
 
   if [[ -v VERBOSE ]]; then
     echo "ssh ${HOST} << EOF ${HEREDOC_SCRIPT} EOF"
   fi
-  ssh ${HOST} << EOF
+  ssh "${HOST}" << EOF
   ${HEREDOC_SCRIPT}
 EOF
 
   if [[ -v skip_wait ]]; then
-    mutagen_sync_nopause ${MUT_SESS_NAME}
+    mutagen_sync_nopause "${MUT_SESS_NAME}"
   else
-    mutagen_sync_pause ${MUT_SESS_NAME}
+    mutagen_sync_pause "${MUT_SESS_NAME}"
   fi
 }
 
