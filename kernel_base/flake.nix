@@ -46,6 +46,7 @@
           pkg-config
           b4
           virtiofsd
+          perl
 
           # These are for gcc-plugins to work
           gmp
