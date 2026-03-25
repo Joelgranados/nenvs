@@ -118,7 +118,8 @@ get_krc_opts()
   NIX_DEV_ARGS+="-s KBUILD_BUILD_TIMESTAMP 0 "
   NIX_DEV_ARGS+="-s KBUILD_BUILD_USER user "
   NIX_DEV_ARGS+="-s KBUILD_BUILD_HOST host "
-  NIX_DEV_ARGS+="-s LOCALVERSION \"\" "
+  NIX_DEV_ARGS+="-s KBUILD_BUILD_VERSION 1 "
+  NIX_DEV_ARGS+="-s LOCALVERSION \"-custom\" "
 
   HEREDOC_SCRIPT="
     # Adjust PATH for non-login shells connecting to non-nix hosts
