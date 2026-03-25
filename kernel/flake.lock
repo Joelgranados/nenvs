@@ -68,11 +68,11 @@
       },
       "locked": {
         "dir": "kernel_base",
-        "lastModified": 1774439714,
-        "narHash": "sha256-e1Y63PYqmLsIBxThZ1FxkI66D7ztmAZvxryJ2Y9zQ6s=",
+        "lastModified": 1774445808,
+        "narHash": "sha256-qflspHkyf33KRYzr6ZdBx7K1+mT9P0oJaoblCiQcNeM=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "267e7bca5baaa63db522dbda9604b35b639bea98",
+        "rev": "25664c9d943d82a7aa2e5e71c900b36634d98c66",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
       },
       "locked": {
         "dir": "krc",
-        "lastModified": 1774439676,
-        "narHash": "sha256-EQ+3ixcMv63LMR61rUqrZw6DgqBC1RvTBM4AtgwI4w4=",
+        "lastModified": 1774445808,
+        "narHash": "sha256-qflspHkyf33KRYzr6ZdBx7K1+mT9P0oJaoblCiQcNeM=",
         "owner": "Joelgranados",
         "repo": "nenvs",
-        "rev": "789329f92e64683164d5ae7e99ff439e5a80a16c",
+        "rev": "25664c9d943d82a7aa2e5e71c900b36634d98c66",
         "type": "github"
       },
       "original": {
