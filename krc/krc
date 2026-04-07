@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-3.0-only
 
+: "${KRC_LOCALVERSION:=""}"
 PWD=$(pwd)
 ENVS_GIT_REPO="github:Joelgranados/nenvs/master"
 TC_GIT_REPO="github:Joelgranados/toolchain_ctl"
@@ -26,6 +27,10 @@ OPTIONS:
   -v, --verbose               Increase verbosity
   --skip-wait                 Return immediately after calling flushing mutagen
                               and leave the session un-paused.
+  --print-heredoc             Output the Heredoc that would have been executed.
+
+ENV VARS:
+  KRC_LOCALVERSION            prefix this var to control LOCALVERSION=
 "
 
 _usage() {
@@ -46,7 +51,7 @@ add_xcompile_cmds()
 get_krc_opts()
 {
   local short="x:e:vh"
-  local long="cross-compile:,env:,verbose,skip-wait,help"
+  local long="cross-compile:,env:,verbose,skip-wait,help,print-heredoc"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
     exit 1
@@ -74,6 +79,10 @@ get_krc_opts()
 
       '-v' | '--verbose' )
         VERBOSE=1; shift
+        ;;
+
+      '--print-heredoc' )
+        print_heredoc=1; shift;
         ;;
 
       '--' )
@@ -119,7 +128,7 @@ get_krc_opts()
   NIX_DEV_ARGS+="-s KBUILD_BUILD_USER user "
   NIX_DEV_ARGS+="-s KBUILD_BUILD_HOST host "
   NIX_DEV_ARGS+="-s KBUILD_BUILD_VERSION 1 "
-  NIX_DEV_ARGS+="-s LOCALVERSION \"-custom\" "
+  NIX_DEV_ARGS+="-s LOCALVERSION \"${KRC_LOCALVERSION}\" "
 
   HEREDOC_SCRIPT="
     # Adjust PATH for non-login shells connecting to non-nix hosts
@@ -195,9 +204,13 @@ EOF
 
 get_krc_opts "$@"
 
-if [[ ${HOST} == "localhost" ]]; then
-  local_exec
+if [[ ! -v print_heredoc ]]; then
+  if [[ ${HOST} == "localhost" ]]; then
+    local_exec
+  else
+    remote_exec
+  fi
 else
-  remote_exec
+  echo "${HEREDOC_SCRIPT}"
 fi
 
