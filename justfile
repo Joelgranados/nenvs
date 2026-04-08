@@ -35,6 +35,7 @@ create_reg: clean _top_reg _registries _bottom_reg
 
 # Install {{reg_name}} in {{inst_path}}
 install inst_path="~/.config/nix/": create_reg
+  mkdir --parents {{ inst_path }}
   mv --backup=numbered {{reg_name}} {{inst_path}}
 
 # Update flake lock on envs that depend on {{input}}
