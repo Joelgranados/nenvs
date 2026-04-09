@@ -105,7 +105,7 @@ vdi_start()
   cmd="sudo systemctl restart virtlogd"
   _exec "${cmd}"
 
-  $vdi_virsh_cmd start "$vdi_name" &> /dev/null &
+  $vdi_virsh_cmd start --force-boot "$vdi_name" &> /dev/null &
   $vdi_virtmgr_cmd --show-domain-console "$vdi_name" &> /dev/null &
 }
 
