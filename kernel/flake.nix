@@ -9,10 +9,9 @@
     kernel_base.url = "github:Joelgranados/nenvs?dir=kernel_base";
     krc.url = "github:Joelgranados/nenvs?dir=krc";
     aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
-    semcode.url = "github:Joelgranados/semcode?ref=61e5e4fbefc758b5f2b0c8216318fc3cb9d903cf";
   };
 
-  outputs = { self, nixpkgs, env_shell, kernel_base, krc, aiagent_base, semcode, ... }:
+  outputs = { self, nixpkgs, env_shell, kernel_base, krc, aiagent_base, ... }:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -22,7 +21,6 @@
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           krc.packages.${system}.default
-          semcode.packages.${pkgs.system}.default
         ]
         ++ krc.devShells.${system}.default.shellPkgs
         ++ kernel_base.devShells.${system}.default.shellPkgs
