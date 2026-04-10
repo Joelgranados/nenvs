@@ -7,9 +7,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     ccache.url = "github:Joelgranados/nenvs?dir=ccache";
     toolchain_ctl.url = "github:Joelgranados/toolchain_ctl";
+    semcode.url = "github:Joelgranados/semcode?ref=61e5e4fbefc758b5f2b0c8216318fc3cb9d903cf";
   };
 
-  outputs = { self, nixpkgs, ccache, toolchain_ctl, ... }:
+  outputs = { self, nixpkgs, ccache, toolchain_ctl, semcode, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -57,6 +58,8 @@
           msmtp
 
           toolchain_ctl.packages.${system}.default
+          semcode.packages.${pkgs.system}.default
+
         ] ++ ccache.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
         shellHook = ccache.devShells.${system}.default.shellHook;
