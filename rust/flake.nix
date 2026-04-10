@@ -17,6 +17,9 @@
         shellPkgs = with pkgs;
         [
           cargo
+          pkg-config
+          openssl
+          protobuf
         ];
 
         packages = self.devShells.${system}.default.shellPkgs;
