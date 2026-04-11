@@ -32,7 +32,6 @@ OPTIONS:
 ENV VARS:
   KRC_LOCALVERSION            prefix this var to control LOCALVERSION=
 "
-
 _usage() {
     if [[ $2 -ne 0 ]]; then
         echo "$1" >&2
@@ -143,15 +142,26 @@ get_krc_opts()
   "
 }
 
-mutagen_cmd()
-{
-  local cmd=$1
+_silent_exec() {
+  eval "${1}"
+}
+
+_exec() {
+  local cmd="${1}"
 
   if [[ -v VERBOSE ]]; then
     echo "${cmd}"
   fi
-  eval "${cmd}"
-  if ! eval "${cmd}"; then
+
+  if [[ -v PRINT ]]; then
+    return
+  fi
+
+  _silent_exec "${cmd}"
+  res="$?"
+
+  if [ "$res" != 0 ]; then
+    echo -e "error cmd (${cmd}) \n err: $res"
     _usage "${USAGE}" 1
   fi
 }
@@ -162,7 +172,7 @@ mutagen_sync_pause()
   local cmd="mutagen sync resume ${sess} \
     && mutagen sync flush ${sess} \
     && mutagen sync pause ${sess}"
-  mutagen_cmd "${cmd}"
+  _exec "${cmd}"
 }
 
 mutagen_sync_nopause()
@@ -170,7 +180,7 @@ mutagen_sync_nopause()
   local sess=$1
   local cmd="mutagen sync resume ${sess} \
     && mutagen sync flush --skip-wait ${sess}"
-  mutagen_cmd "${cmd}"
+  _exec "${cmd}"
 
 }
 
