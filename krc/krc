@@ -27,7 +27,7 @@ OPTIONS:
   -v, --verbose               Increase verbosity
   --skip-wait                 Return immediately after calling flushing mutagen
                               and leave the session un-paused.
-  --print-heredoc             Output the Heredoc that would have been executed.
+  --print                     Output the Heredoc that would have been executed.
 
 ENV VARS:
   KRC_LOCALVERSION            prefix this var to control LOCALVERSION=
@@ -50,7 +50,7 @@ add_xcompile_cmds()
 get_krc_opts()
 {
   local short="x:e:vh"
-  local long="cross-compile:,env:,verbose,skip-wait,help,print-heredoc"
+  local long="cross-compile:,env:,verbose,skip-wait,help,print"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
     exit 1
@@ -80,8 +80,8 @@ get_krc_opts()
         VERBOSE=1; shift
         ;;
 
-      '--print-heredoc' )
-        print_heredoc=1; shift;
+      '--print' )
+        PRINT=1; shift;
         ;;
 
       '--' )
@@ -149,12 +149,12 @@ _silent_exec() {
 _exec() {
   local cmd="${1}"
 
-  if [[ -v VERBOSE ]]; then
+  if [[ -v VERBOSE || -v PRINT ]]; then
     echo "${cmd}"
   fi
 
   if [[ -v PRINT ]]; then
-    return
+    return 0
   fi
 
   _silent_exec "${cmd}"
@@ -188,12 +188,8 @@ remote_exec()
 {
   mutagen_sync_pause "${MUT_SESS_NAME}"
 
-  if [[ -v VERBOSE ]]; then
-    echo "ssh ${HOST} << EOF ${HEREDOC_SCRIPT} EOF"
-  fi
-  ssh "${HOST}" << EOF
-  ${HEREDOC_SCRIPT}
-EOF
+  local cmd="ssh \"${HOST}\" bash -c '${HEREDOC_SCRIPT}'"
+  _exec "${cmd}"
 
   if [[ -v skip_wait ]]; then
     mutagen_sync_nopause "${MUT_SESS_NAME}"
@@ -204,23 +200,15 @@ EOF
 
 local_exec()
 {
-  if [[ -v VERBOSE ]]; then
-    echo "bash << EOF ${HEREDOC_SCRIPT} EOF"
-  fi
-  bash << EOF
-  ${HEREDOC_SCRIPT}
-EOF
+  local cmd="bash -c '${HEREDOC_SCRIPT}'"
+  _exec "${cmd}"
 }
 
 get_krc_opts "$@"
 
-if [[ ! -v print_heredoc ]]; then
-  if [[ ${HOST} == "localhost" ]]; then
-    local_exec
-  else
-    remote_exec
-  fi
+if [[ ${HOST} == "localhost" ]]; then
+  local_exec
 else
-  echo "${HEREDOC_SCRIPT}"
+  remote_exec
 fi
 
