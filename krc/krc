@@ -24,6 +24,8 @@ OPTIONS:
   -e, --env <ENV>             Environment name under ${ENVS_GIT_REPO} to use
                               for the command. Valid values are kernel_base and
                               qemu_base. kernel_base is default.
+  -m, --mutagen-create        Runs 'mutagen sync create' before any other mutagen
+                              command.
   -v, --verbose               Increase verbosity
   --skip-wait                 Return immediately after calling flushing mutagen
                               and leave the session un-paused.
@@ -49,8 +51,8 @@ add_xcompile_cmds()
 
 get_krc_opts()
 {
-  local short="x:e:vh"
-  local long="cross-compile:,env:,verbose,skip-wait,help,print"
+  local short="x:e:vhm"
+  local long="cross-compile:,env:,verbose,skip-wait,help,print,mutagen-create"
 
   if ! tmp=$(getopt -o "$short" --long "$long" -n "$BASENAME" -- "$@"); then
     exit 1
@@ -78,6 +80,10 @@ get_krc_opts()
 
       '-v' | '--verbose' )
         VERBOSE=1; shift
+        ;;
+
+      '-m' | '--mutagen-create' )
+        mutagen_create=1; shift
         ;;
 
       '--print' )
@@ -118,7 +124,7 @@ get_krc_opts()
     ENV_URL="${ENVS_GIT_REPO}\?dir=kernel_base"
   fi
 
-  MUT_SESS_NAME="$(pwd | sed "s./..g")${HOST}"
+  MUT_SESS_NAME="$(echo "${PWD}" | sed "s./..g")${HOST}"
 
   NIX_DEV_ARGS="--no-write-lock-file "
   NIX_DEV_ARGS+="-i "
@@ -184,6 +190,16 @@ mutagen_sync_nopause()
 
 }
 
+mutagen_create()
+{
+  local sess="$1"
+  local host="$2"
+  local cmd="mutagen sync create --name ${sess} \
+    -p -m two-way-resolved --ignore-vcs --symlink-mode=posix-raw \
+    ${PWD} ${host}:${PWD}"
+  _exec "${cmd}"
+}
+
 remote_exec()
 {
   mutagen_sync_pause "${MUT_SESS_NAME}"
@@ -205,6 +221,10 @@ local_exec()
 }
 
 get_krc_opts "$@"
+
+if [[ -v mutagen_create ]]; then 
+  mutagen_create "${MUT_SESS_NAME}" "${HOST}"
+fi
 
 if [[ ${HOST} == "localhost" ]]; then
   local_exec
