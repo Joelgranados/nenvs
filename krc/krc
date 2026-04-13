@@ -124,7 +124,7 @@ get_krc_opts()
     ENV_URL="${ENVS_GIT_REPO}\?dir=kernel_base"
   fi
 
-  MUT_SESS_NAME="$(echo "${PWD}" | sed "s./..g")${HOST}"
+  MUT_SESS_NAME="${PWD//\//}${HOST}"
 
   NIX_DEV_ARGS="--no-write-lock-file "
   NIX_DEV_ARGS+="-i "
@@ -148,6 +148,20 @@ get_krc_opts()
   "
 }
 
+_print() {
+  local cmd="$1"
+
+  if [[ -v VERBOSE || -v PRINT ]]; then
+    echo "${cmd}"
+  fi
+
+  if [[ -v PRINT ]]; then
+    return 0
+  fi
+
+  return 1
+}
+
 _silent_exec() {
   eval "${1}"
 }
@@ -155,11 +169,7 @@ _silent_exec() {
 _exec() {
   local cmd="${1}"
 
-  if [[ -v VERBOSE || -v PRINT ]]; then
-    echo "${cmd}"
-  fi
-
-  if [[ -v PRINT ]]; then
+  if _print "${cmd}"; then
     return 0
   fi
 
@@ -171,6 +181,34 @@ _exec() {
     _usage "${USAGE}" 1
   fi
 }
+
+_exec_heredoc() {
+  local location="$1"; shift
+  local host="$1"; shift
+  local herestr="$*"
+
+  if _print "${herestr}"; then
+    return 0
+  fi
+
+  if [ "${location}" == "remote" ]; then
+    # shellcheck disable=SC2087
+    ssh "${host}" << EOF
+${herestr}
+EOF
+
+  elif [ "${location}" == "localhost" ]; then
+
+  bash << EOF
+${herestr}
+EOF
+
+  else
+    echo -e "error: unknown location ${location}"
+    exit 1
+  fi
+}
+
 
 mutagen_sync_pause()
 {
@@ -204,8 +242,8 @@ remote_exec()
 {
   mutagen_sync_pause "${MUT_SESS_NAME}"
 
-  local cmd="ssh \"${HOST}\" bash -c '${HEREDOC_SCRIPT}'"
-  _exec "${cmd}"
+  echo "${HEREDOC_SCRIPT}"
+  _exec_heredoc remote "${HOST}" "${HEREDOC_SCRIPT}"
 
   if [[ -v skip_wait ]]; then
     mutagen_sync_nopause "${MUT_SESS_NAME}"
@@ -216,8 +254,7 @@ remote_exec()
 
 local_exec()
 {
-  local cmd="bash -c '${HEREDOC_SCRIPT}'"
-  _exec "${cmd}"
+  _exec_heredoc localhost localhost "${HEREDOC_SCRIPT}"
 }
 
 get_krc_opts "$@"
