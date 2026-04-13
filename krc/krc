@@ -242,7 +242,6 @@ remote_exec()
 {
   mutagen_sync_pause "${MUT_SESS_NAME}"
 
-  echo "${HEREDOC_SCRIPT}"
   _exec_heredoc remote "${HOST}" "${HEREDOC_SCRIPT}"
 
   if [[ -v skip_wait ]]; then
