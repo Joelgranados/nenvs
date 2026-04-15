@@ -144,7 +144,11 @@ get_krc_opts()
 
     ${xcompile_cmds}
 
-    cd ${PWD} && nix develop ${NIX_DEV_ARGS} ${ENV_URL} --command bash -c \"${cmd_args}\"
+    nixd_tmp=\$(mktemp -d)
+    cd ${PWD} && \
+      TMPDIR=\${nixd_tmp} \
+      nix develop ${NIX_DEV_ARGS} ${ENV_URL} --command bash -c \"${cmd_args}\"
+    rm -rfv \${nixd_tmp}
   "
 }
 
@@ -192,7 +196,6 @@ _exec_heredoc() {
   fi
 
   if [ "${location}" == "remote" ]; then
-    # shellcheck disable=SC2087
     ssh "${host}" << EOF
 ${herestr}
 EOF
