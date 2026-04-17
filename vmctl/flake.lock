@@ -1,8 +1,28 @@
 {
   "nodes": {
-    "env_shell": {
+    "aiagent_base": {
       "inputs": {
         "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "dir": "aiagent_base",
+        "lastModified": 1776287118,
+        "narHash": "sha256-UIUTidw6R+SJoXhxoWXNzh3HEeYxscYyhwkwqx7FUMY=",
+        "owner": "Joelgranados",
+        "repo": "nenvs",
+        "rev": "8b42aeb1aa391cec71abab9c04b00f454a63e7d0",
+        "type": "github"
+      },
+      "original": {
+        "dir": "aiagent_base",
+        "owner": "Joelgranados",
+        "repo": "nenvs",
+        "type": "github"
+      }
+    },
+    "env_shell": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "dir": "env_shell",
@@ -22,7 +42,7 @@
     },
     "krc": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "dir": "krc",
@@ -42,6 +62,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1744536153,
         "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
         "owner": "NixOS",
@@ -54,7 +90,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1735563628,
         "narHash": "sha256-OnSAY7XDSx7CtDoqNh8jwVwh4xNL/2HaJxGjryLWzX8=",
@@ -70,7 +106,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1746957726,
         "narHash": "sha256-k9ut1LSfHCr0AW82ttEQzXVCqmyWVA5+SHJkS5ID/Jo=",
@@ -88,9 +124,10 @@
     },
     "root": {
       "inputs": {
+        "aiagent_base": "aiagent_base",
         "env_shell": "env_shell",
         "krc": "krc",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       }
     }
   },

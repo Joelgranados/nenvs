@@ -7,9 +7,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
     krc.url = "github:Joelgranados/nenvs?dir=krc";
+    aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
 
-  outputs = { self, nixpkgs, env_shell, krc, ... }:
+  outputs = { self, nixpkgs, env_shell, krc, aiagent_base, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -35,6 +36,7 @@
 
           krc.packages.${system}.default
         ]
+        ++ aiagent_base.devShells.${system}.default.shellPkgs
         ++ krc.devShells.${system}.default.shellPkgs ;
         packages = self.devShells.${system}.default.shellPkgs;
 
@@ -47,6 +49,7 @@
           export PATH="''${HOME}/src/vmctl:$PATH"
         ''
         + env_shell.devShells.${system}.default.shellHook
+        + aiagent_base.devShells.${system}.default.shellHook
         ;
       };
     };
