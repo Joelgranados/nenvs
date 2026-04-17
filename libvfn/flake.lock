@@ -1,8 +1,28 @@
 {
   "nodes": {
-    "env_shell": {
+    "aiagent_base": {
       "inputs": {
         "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "dir": "aiagent_base",
+        "lastModified": 1776415863,
+        "narHash": "sha256-s2dgEc+tflxBusx44EjvQ/OvSlUaU/JS7jhBuIcsCNE=",
+        "owner": "Joelgranados",
+        "repo": "nenvs",
+        "rev": "a17e42b32da1d3714f098727614b6bfc67d3326a",
+        "type": "github"
+      },
+      "original": {
+        "dir": "aiagent_base",
+        "owner": "Joelgranados",
+        "repo": "nenvs",
+        "type": "github"
+      }
+    },
+    "env_shell": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "dir": "env_shell",
@@ -22,6 +42,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1768127708,
+        "narHash": "sha256-1Sm77VfZh3mU0F5OqKABNLWxOuDeHIlcFjsXeeiPazs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ffbc9f8cbaacfb331b6017d5a5abb21a492c9a38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1744536153,
         "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
         "owner": "NixOS",
@@ -34,7 +70,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1752436162,
         "narHash": "sha256-Kt1UIPi7kZqkSc5HVj6UY5YLHHEzPBkgpNUByuyxtlw=",
@@ -52,8 +88,9 @@
     },
     "root": {
       "inputs": {
+        "aiagent_base": "aiagent_base",
         "env_shell": "env_shell",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       }
     }
   },
