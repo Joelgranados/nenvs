@@ -6,9 +6,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     env_shell.url = "github:Joelgranados/nenvs?dir=env_shell";
+    aiagent_base.url = "github:Joelgranados/nenvs?dir=aiagent_base";
   };
 
-  outputs = { self, nixpkgs, env_shell, ... }:
+  outputs = { self, nixpkgs, env_shell, aiagent_base, ... }:
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
@@ -44,6 +45,7 @@
           python311Packages.icalendar
         ];
         packages = self.devShells.${system}.default.shellPkgs
+          ++ aiagent_base.devShells.${system}.default.shellPkgs
           ++ [self.packages.${system}.default];
 
         shellHook = ''
@@ -61,6 +63,7 @@
             lei daemon-kill
           "
         ''
+        + aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
         ;
       };
