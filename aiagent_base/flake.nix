@@ -45,6 +45,8 @@
               --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user \
               --ro-bind $HOME/src $HOME/src \
               --dev-bind /dev/null /dev/null \
+              --dev-bind /dev/urandom /dev/urandom \
+              --dev-bind /dev/random /dev/random \
               --bind /tmp /tmp \
               --bind $HOME/.claude $HOME/.claude \
               --bind $HOME/.claude.json $HOME/.claude.json \
