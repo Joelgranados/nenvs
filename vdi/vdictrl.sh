@@ -105,7 +105,16 @@ vdi_start()
   cmd="sudo systemctl restart virtlogd"
   _exec "${cmd}"
 
-  $vdi_virsh_cmd start --force-boot "$vdi_name" &> /dev/null &
+  # Make sure it starts
+  for i in $(seq 1 10); do
+    if ! $vdi_virsh_cmd list --name --state-running | grep -x "$vdi_name" > /dev/null ; then
+      sleep 0.1
+      $vdi_virsh_cmd start --force-boot "$vdi_name" &> /dev/null &
+    else
+      echo "Msg: ${vdi_name} started on the $i'th try"
+      break
+    fi
+  done
   $vdi_virtmgr_cmd --show-domain-console "$vdi_name" &> /dev/null &
 }
 
@@ -115,12 +124,12 @@ vdi_stop()
   $vdi_virsh_cmd shutdown "$vdi_name" &> /dev/null
 
   # Make sure it shut down
-  for ((i=1; i<=5; i++)); do
-    if $vdi_virsh_cmd list --state-running --name | grep -q "$vdi_name"; then
-      echo "Msg: ${vdi_name} is shut down."
+  for i in $(seq 1 5); do
+    if $vdi_virsh_cmd list --name --state-running | grep -q "$vdi_name" > /dev/null ; then
+      echo "Msg: ${vdi_name} is shut down on the $i'th try."
       break
     fi
-    sleep 2
+    sleep 0.1
   done
 
   vdi_pid=$(pgrep -f "$vdi_name")
