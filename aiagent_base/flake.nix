@@ -44,6 +44,7 @@
               --ro-bind /lib64 /lib64 \
               --ro-bind $HOME/.gitconfig $HOME/.gitconfig \
               --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user \
+              --ro-bind $HOME/Mail $HOME/Mail \
               --ro-bind $HOME/.notmuch-config $HOME/.notmuch-config \
               --ro-bind $HOME/src $HOME/src \
               --dev-bind /dev/null /dev/null \
