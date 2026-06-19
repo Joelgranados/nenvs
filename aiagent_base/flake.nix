@@ -32,7 +32,21 @@
               --die-with-parent \
               --new-session \
               --unshare-pid \
+              --unshare-ipc \
+              --unshare-uts \
+              --unshare-cgroup \
               --share-net \
+              --clearenv \
+              --setenv HOME "$HOME" \
+              --setenv USER "$USER" \
+              --setenv SHELL "$SHELL" \
+              --setenv COLORTERM truecolor \
+              --setenv PATH "/run/current-system/sw/bin:/usr/bin:/bin" \
+              --setenv TERM "$TERM" \
+              --setenv LANG "$LANG" \
+              --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
+              --setenv SSL_CERT_FILE "$SSL_CERT_FILE" \
+              --setenv NIX_SSL_CERT_FILE "$NIX_SSL_CERT_FILE" \
               --bind \''$(pwd) /sandbox/\''$(pwd) \
               --chdir /sandbox/\''$(pwd) \
               --proc /proc \
@@ -42,21 +56,16 @@
               --ro-bind /etc /etc \
               --ro-bind /lib /lib \
               --ro-bind /lib64 /lib64 \
-              --ro-bind $HOME/.gitconfig $HOME/.gitconfig \
-              --ro-bind $HOME/.gitconfig.user $HOME/.gitconfig.user \
-              --ro-bind $HOME/Mail $HOME/Mail \
-              --ro-bind $HOME/.notmuch-config $HOME/.notmuch-config \
-              --ro-bind $HOME/src $HOME/src \
+              --ro-bind "$HOME"/.gitconfig "$HOME"/.gitconfig \
+              --ro-bind "$HOME"/.gitconfig.user "$HOME"/.gitconfig.user \
+              --ro-bind "$HOME"/Mail "$HOME"/Mail \
+              --ro-bind "$HOME"/.notmuch-config "$HOME"/.notmuch-config \
+              --ro-bind "$HOME"/src "$HOME"/src \
               --ro-bind /run/current-system/sw/bin /run/current-system/sw/bin \
-              --dev-bind /dev/null /dev/null \
-              --dev-bind /dev/urandom /dev/urandom \
-              --dev-bind /dev/random /dev/random \
-              --bind /tmp /tmp \
-              --bind $HOME/.claude $HOME/.claude \
-              --bind $HOME/.claude.json $HOME/.claude.json \
-              --bind $HOME/.claude.json.backup $HOME/.claude.json.backup \
-              --ro-bind $HOME/.tmux.conf $HOME/.tmux.conf \
-              --setenv SHELL "${pkgs.bash}/bin/bash" \
+              --dev /dev \
+              --bind "$HOME"/.claude "$HOME"/.claude \
+              --bind "$HOME"/.claude.json "$HOME"/.claude.json \
+              --bind "$HOME"/.claude.json.backup "$HOME"/.claude.json.backup \
               ${pkgs.claude-code}/bin/claude'
           "
         '';
