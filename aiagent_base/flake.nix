@@ -47,6 +47,7 @@
               --ro-bind $HOME/Mail $HOME/Mail \
               --ro-bind $HOME/.notmuch-config $HOME/.notmuch-config \
               --ro-bind $HOME/src $HOME/src \
+              --ro-bind /run/current-system/sw/bin /run/current-system/sw/bin \
               --dev-bind /dev/null /dev/null \
               --dev-bind /dev/urandom /dev/urandom \
               --dev-bind /dev/random /dev/random \
@@ -54,6 +55,7 @@
               --bind $HOME/.claude $HOME/.claude \
               --bind $HOME/.claude.json $HOME/.claude.json \
               --bind $HOME/.claude.json.backup $HOME/.claude.json.backup \
+              --ro-bind $HOME/.tmux.conf $HOME/.tmux.conf \
               --setenv SHELL "${pkgs.bash}/bin/bash" \
               ${pkgs.claude-code}/bin/claude'
           "
