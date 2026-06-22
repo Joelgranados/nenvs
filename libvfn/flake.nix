@@ -55,8 +55,8 @@
             cd ~/src/libvfn
           "
         ''
-        + env_shell.devShells.${system}.default.shellHook
         + aiagent_base.devShells.${system}.default.shellHook
+        + env_shell.devShells.${system}.default.shellHook
         ;
       };
     };

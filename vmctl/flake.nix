@@ -49,8 +49,8 @@
           export VMCTL_VMROOT=$HOME/src/vmsconf
           export PATH="''${HOME}/src/vmctl:$PATH"
         ''
-        + env_shell.devShells.${system}.default.shellHook
         + aiagent_base.devShells.${system}.default.shellHook
+        + env_shell.devShells.${system}.default.shellHook
         ;
       };
     };
