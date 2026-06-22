@@ -28,7 +28,7 @@
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(NENVS)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
-            alias aigent='sb_claude ${pkgs.claude-code}/bin/claude'
+            alias aigent='sb_claude ${builtins.elemAt aiagent_base.devShells.${system}.default.shellPkgs 0}/bin/claude'
             cd ~/src/nenvs
           "
         ''
