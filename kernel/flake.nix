@@ -28,6 +28,9 @@
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(KERNEL)"
+          NIX_ENV_SHELL_ZSHRC_PREFIX="
+            alias aigent='sb_claude ${pkgs.claude-code}/bin/claude'
+          "
         ''
         + kernel_base.devShells.${system}.default.shellHook
         + aiagent_base.devShells.${system}.default.shellHook

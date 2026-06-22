@@ -31,6 +31,7 @@
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(WRITE)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             cd ~/src/journal
+            alias aigent='sb_claude ${pkgs.claude-code}/bin/claude'
           "
         ''
         + aiagent_base.devShells.${system}.default.shellHook

@@ -58,6 +58,10 @@
             alias mailsynck='~/Mail/.config/sync.sh';
             alias lei-stage-a='lei q -v -o ~/Mail/fastmail/lei-staging --dedup=mid -t --no-save -I https://lore.kernel.org/all';
             alias lei-stage='lei q -v -o ~/Mail/fastmail/lei-staging --dedup=mid -t --no-save';
+            alias aigent='sb_claude \
+              --ro-bind "$HOME"/.gitconfig.user "$HOME"/.gitconfig.user \
+              --ro-bind "$HOME"/.notmuch-config "$HOME"/.notmuch-config \
+              ${pkgs.claude-code}/bin/claude';
 
             # Avoid confusions about where the tmpdir is. It will restart with lei cmd
             lei daemon-kill
