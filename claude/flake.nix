@@ -22,6 +22,9 @@
 
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(CLAUDE)"
+          NIX_ENV_SHELL_ZSHRC_PREFIX="
+            alias claude='sb_claude ${pkgs.claude-code}/bin/claude'
+          "
         ''
         + aiagent_base.devShells.${system}.default.shellHook
         + env_shell.devShells.${system}.default.shellHook
