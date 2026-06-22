@@ -11,7 +11,10 @@
 
   outputs = { self, nixpkgs, env_shell, aiagent_base, ... }:
     let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        };
       system = "x86_64-linux";
     in {
       devShells.${system}.default = pkgs.mkShell {
