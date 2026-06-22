@@ -61,7 +61,7 @@
             alias aigent='sb_claude \
               --ro-bind "$HOME"/.gitconfig.user "$HOME"/.gitconfig.user \
               --ro-bind "$HOME"/.notmuch-config "$HOME"/.notmuch-config \
-              ${pkgs.claude-code}/bin/claude';
+              ${aiagent_base.packages.${system}.claude}/bin/claude';
 
             # Avoid confusions about where the tmpdir is. It will restart with lei cmd
             lei daemon-kill
