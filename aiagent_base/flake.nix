@@ -45,8 +45,6 @@
               --setenv TERM "$TERM" \
               --setenv LANG "$LANG" \
               --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
-              --setenv SSL_CERT_FILE "$SSL_CERT_FILE" \
-              --setenv NIX_SSL_CERT_FILE "$NIX_SSL_CERT_FILE" \
               --bind \''$(pwd) /sandbox/\''$(pwd) \
               --chdir /sandbox/\''$(pwd) \
               --proc /proc \
