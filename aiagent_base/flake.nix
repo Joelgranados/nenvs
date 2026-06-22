@@ -62,8 +62,8 @@
               --ro-bind /run/current-system/sw/bin /run/current-system/sw/bin \
               --ro-bind "$HOME"/.claude "$HOME"/.claude \
               --ro-bind "$HOME"/.claude.json "$HOME"/.claude.json \
-              --ro-bind "$HOME"/.claude.json.backup "$HOME"/.claude.json.backup'
-              --dev /dev \
+              --ro-bind "$HOME"/.claude.json.backup "$HOME"/.claude.json.backup \
+              --dev /dev'
           "
         '';
       };
