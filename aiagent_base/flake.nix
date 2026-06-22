@@ -15,6 +15,8 @@
       };
       system = "x86_64-linux";
     in {
+      packages.${system}.claude = pkgs.claude-code;
+
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = [
           pkgs.claude-code
