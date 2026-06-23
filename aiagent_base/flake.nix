@@ -23,7 +23,6 @@
           pkgs.bubblewrap
           pkgs.bash
           pkgs.git
-          pkgs.notmuch
         ];
         packages = self.devShells.${system}.default.shellPkgs;
 
@@ -56,14 +55,17 @@
               --ro-bind /etc /etc \
               --ro-bind /lib /lib \
               --ro-bind /lib64 /lib64 \
+              --ro-bind /run/current-system/sw/bin /run/current-system/sw/bin \
               --ro-bind "$HOME"/.gitconfig "$HOME"/.gitconfig \
               --ro-bind "$HOME"/.gitconfig.user "$HOME"/.gitconfig.user \
-              --ro-bind "$HOME"/.notmuch-config "$HOME"/.notmuch-config \
-              --ro-bind /run/current-system/sw/bin /run/current-system/sw/bin \
-              --ro-bind "$HOME"/.claude "$HOME"/.claude \
-              --ro-bind "$HOME"/.claude.json "$HOME"/.claude.json \
-              --ro-bind "$HOME"/.claude.json.backup "$HOME"/.claude.json.backup \
-              --dev /dev'
+              --dev /dev \
+              --dir "$HOME" \
+              --overlay-src "$HOME/.claude" \
+              --tmp-overlay "$HOME/.claude" \
+              --file 4 "$HOME/.claude.json" \
+              --file 5 "$HOME/.claude.json.backup" \
+              4< "$HOME/.claude.json" \
+              5< "$HOME/.claude.json.backup" \
           "
         '';
       };
