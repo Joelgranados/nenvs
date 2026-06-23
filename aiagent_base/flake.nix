@@ -65,7 +65,7 @@
               --file 4 "$HOME/.claude.json" \
               --file 5 "$HOME/.claude.json.backup" \
               4< "$HOME/.claude.json" \
-              5< "$HOME/.claude.json.backup" \
+              5< "$HOME/.claude.json.backup"'
           "
         '';
       };
