@@ -29,6 +29,7 @@
         shellHook = ''
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
+            SB_AIGENT_PATH="/run/current-system/sw/bin:/usr/bin:/bin"
             alias sb_claude='bwrap \
               --die-with-parent \
               --new-session \
@@ -42,7 +43,7 @@
               --setenv USER "$USER" \
               --setenv SHELL "$SHELL" \
               --setenv COLORTERM truecolor \
-              --setenv PATH "/run/current-system/sw/bin:/usr/bin:/bin" \
+              --setenv PATH "$SB_AIGENT_PATH" \
               --setenv TERM "$TERM" \
               --setenv LANG "$LANG" \
               --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
