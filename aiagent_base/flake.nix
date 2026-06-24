@@ -14,7 +14,10 @@
         config.allowUnfree = true;
       };
       system = "x86_64-linux";
+      aigentPath = "/run/current-system/sw/bin:/usr/bin:/bin";
     in {
+      inherit aigentPath;
+
       packages.${system}.claude = pkgs.claude-code;
 
       devShells.${system}.default = pkgs.mkShell {
@@ -29,7 +32,6 @@
         shellHook = ''
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
-            SB_AIGENT_PATH="/run/current-system/sw/bin:/usr/bin:/bin"
             alias sb_claude='bwrap \
               --die-with-parent \
               --new-session \
@@ -43,7 +45,7 @@
               --setenv USER "$USER" \
               --setenv SHELL "$SHELL" \
               --setenv COLORTERM truecolor \
-              --setenv PATH "$SB_AIGENT_PATH" \
+              --setenv PATH "${aigentPath}" \
               --setenv TERM "$TERM" \
               --setenv LANG "$LANG" \
               --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
