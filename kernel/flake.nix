@@ -30,7 +30,9 @@
         shellHook = ''
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(KERNEL)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
-            alias aigent='sb_claude ${aiagent_base.packages.${system}.claude}/bin/claude'
+            alias aigent='sb_claude \
+              --ro-bind "$HOME"/src/linux "$HOME"/src/linux \
+              ${aiagent_base.packages.${system}.claude}/bin/claude'
           "
         ''
         + kernel_base.devShells.${system}.default.shellHook
