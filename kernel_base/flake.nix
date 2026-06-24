@@ -15,6 +15,8 @@
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
     in {
+      packages.${system}.semcode = semcode.packages.${system}.default;
+
       devShells.${system}.default = pkgs.mkShell {
         shellPkgs = with pkgs;
         [
