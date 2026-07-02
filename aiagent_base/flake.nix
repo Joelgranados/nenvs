@@ -30,8 +30,11 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          NIX_ENV_SHELL_ZSHRC_PREFIX="
-            ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
+          if [ -v $HOME/.claude/.long-lived-auth ]; then
+            export CLAUDE_CODE_OAUTH_TOKEN="$(cat "$HOME/.claude/.long-lived-auth")"
+          fi
+
+          NIX_ENV_SHELL_ZSHRC_PREFIX=" ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
             alias sb_claude='bwrap \
               --die-with-parent \
               --new-session \
@@ -49,6 +52,7 @@
               --setenv TERM "$TERM" \
               --setenv LANG "$LANG" \
               --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
+              --setenv CLAUDE_CODE_OAUTH_TOKEN "$CLAUDE_CODE_OAUTH_TOKEN" \
               --bind \''$(pwd) /sandbox/\''$(pwd) \
               --chdir /sandbox/\''$(pwd) \
               --proc /proc \
