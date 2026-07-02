@@ -30,7 +30,7 @@
         packages = self.devShells.${system}.default.shellPkgs;
 
         shellHook = ''
-          if [ -v $HOME/.claude/.long-lived-auth ]; then
+          if [ -f $HOME/.claude/.long-lived-auth ]; then
             export CLAUDE_CODE_OAUTH_TOKEN="$(cat "$HOME/.claude/.long-lived-auth")"
           fi
 
