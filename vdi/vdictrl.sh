@@ -13,7 +13,7 @@ Args: -n <vdi_name>
 Options:
   -c, --connect <URI>   connect URI. Passed along to virsh and
                         virt-manager. Defaults to qemu:///system
-  -a, --action          [start|stop] defaults to \"start\"
+  -a, --action          [start|stop|suspend|resume]
   -h, --help            Display this help
 "
 
@@ -71,12 +71,14 @@ get_vdi_opts()
     _usage "$USAGE" 1
   fi
 
-  if [[ ! -v vdi_connect_uri ]]; then
-    vdi_connect_uri="qemu:///system"
+  if [[ ! -v vdi_action ]]; then
+    echo "Error: Must define an action (start, stop, suspend, resume)"
+    _usage "$USAGE" 1
   fi
 
-  if [[ ! -v vdi_action ]]; then
-    vdi_action="start"
+
+  if [[ ! -v vdi_connect_uri ]]; then
+    vdi_connect_uri="qemu:///system"
   fi
 
   vdi_virsh_cmd="$(command -v virsh) -q --connect ${vdi_connect_uri}"
@@ -93,7 +95,23 @@ _exec() {
   fi
 }
 
-vdi_start()
+_vdi_suspend()
+{
+  echo "Msg: Suspending VDI $vdi_name"
+
+  cmd="sudo virsh suspend $vdi_name"
+  _exec "${cmd}"
+}
+
+_vdi_resume()
+{
+  echo "Msg: Resuming VDI $vdi_name"
+
+  cmd="sudo virsh resume $vdi_name"
+  _exec "${cmd}"
+}
+
+_vdi_start()
 {
   local cmd=""
 
@@ -118,7 +136,7 @@ vdi_start()
   $vdi_virtmgr_cmd --show-domain-console "$vdi_name" &> /dev/null &
 }
 
-vdi_stop()
+_vdi_stop()
 {
   echo "Msg: Shutting down $vdi_name";
   $vdi_virsh_cmd shutdown "$vdi_name" &> /dev/null
@@ -149,7 +167,11 @@ vdi_stop()
 get_vdi_opts "$@"
 
 if [[ ${vdi_action} = "start" ]]; then
-  vdi_start
-else
-  vdi_stop
+  _vdi_start
+elif [[ ${vdi_action} = "stop" ]]; then
+  _vdi_stop
+elif [[ ${vdi_action} = "suspend" ]]; then
+  _vdi_suspend
+elif [[ ${vdi_action} = "resume" ]]; then
+  _vdi_resume
 fi
