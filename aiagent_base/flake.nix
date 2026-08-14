@@ -31,7 +31,7 @@
 
         shellHook = ''
           if [ -f $HOME/.claude/.long-lived-auth ]; then
-            export CLAUDE_CODE_OAUTH_TOKEN="$(cat "$HOME/.claude/.long-lived-auth")"
+            export CLAUDE_CODE_OAUTH_TOKEN="$(cat "$HOME/.aigent_sandbox/.claude/.long-lived-auth")"
           fi
 
           NIX_ENV_SHELL_ZSHRC_PREFIX=" ''${NIX_ENV_SHELL_ZSHRC_PREFIX} \
@@ -54,6 +54,9 @@
               --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
               --setenv CLAUDE_CODE_OAUTH_TOKEN "$CLAUDE_CODE_OAUTH_TOKEN" \
               --bind \''$(pwd) /sandbox/\''$(pwd) \
+              --bind "$HOME/.aigent_sandbox/.claude/" "$HOME/.claude" \
+              --bind "$HOME/.aigent_sandbox/.claude.json" "$HOME/.claude.json" \
+              --bind "$HOME/.aigent_sandbox/.claude.json.backup" "$HOME/.claude.json.backup" \
               --chdir /sandbox/\''$(pwd) \
               --proc /proc \
               --ro-bind /nix /nix \
@@ -66,13 +69,7 @@
               --ro-bind "$HOME"/.gitconfig "$HOME"/.gitconfig \
               --ro-bind "$HOME"/.gitconfig.user "$HOME"/.gitconfig.user \
               --dev /dev \
-              --dir "$HOME" \
-              --overlay-src "$HOME/.claude" \
-              --tmp-overlay "$HOME/.claude" \
-              --file 4 "$HOME/.claude.json" \
-              --file 5 "$HOME/.claude.json.backup" \
-              4< "$HOME/.claude.json" \
-              5< "$HOME/.claude.json.backup"'
+              --dir "$HOME"'
           "
         '';
       };
