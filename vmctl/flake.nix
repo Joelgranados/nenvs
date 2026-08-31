@@ -44,7 +44,6 @@
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(VMCTL)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             alias aigent='sb_claude ${aiagent_base.packages.${system}.claude}/bin/claude'
-            cd ~/src/vmctl
           "
           export VMCTL_VMROOT=$HOME/src/vmsconf
           export PATH="''${HOME}/src/vmctl:$PATH"
