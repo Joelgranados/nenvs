@@ -7,7 +7,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     ccache.url = "github:Joelgranados/nenvs?dir=ccache";
     toolchain_ctl.url = "github:Joelgranados/toolchain_ctl";
-    semcode.url = "github:Joelgranados/semcode?ref=61e5e4fbefc758b5f2b0c8216318fc3cb9d903cf";
+    semcode.url = "github:Joelgranados/semcode?ref=15fd5a53ccaebdc5cc31cec163b64ef726ec2bb0";
   };
 
   outputs = { self, nixpkgs, ccache, toolchain_ctl, semcode, ... }:
