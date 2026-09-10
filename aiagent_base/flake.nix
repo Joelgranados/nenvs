@@ -53,11 +53,11 @@
               --setenv LANG "$LANG" \
               --setenv LOCALE_ARCHIVE "$LOCALE_ARCHIVE" \
               --setenv CLAUDE_CODE_OAUTH_TOKEN "$CLAUDE_CODE_OAUTH_TOKEN" \
-              --bind \''$(pwd) /sandbox/\''$(pwd) \
+              --bind \''$(pwd) \''$(pwd) \
               --bind "$HOME/.aigent_sandbox/.claude/" "$HOME/.claude" \
               --bind "$HOME/.aigent_sandbox/.claude.json" "$HOME/.claude.json" \
               --bind "$HOME/.aigent_sandbox/.claude.json.backup" "$HOME/.claude.json.backup" \
-              --chdir /sandbox/\''$(pwd) \
+              --chdir \''$(pwd) \
               --proc /proc \
               --ro-bind /nix /nix \
               --ro-bind /bin /bin \
