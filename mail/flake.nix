@@ -13,6 +13,8 @@
     let
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       system = "x86_64-linux";
+      # Make sure Lei is in the aigent path
+      aigent_path = "${pkgs.lib.makeBinPath [ pkgs.public-inbox ]}:${aiagent_base.aigentPath}";
     in {
       packages.${system}.default = pkgs.stdenv.mkDerivation {
         pname = "lei-q-db";
@@ -61,6 +63,7 @@
             alias aigent='sb_claude \
               --ro-bind "$HOME"/.gitconfig.user "$HOME"/.gitconfig.user \
               --ro-bind "$HOME"/.notmuch-config "$HOME"/.notmuch-config \
+              --setenv PATH "${aigent_path}" \
               ${aiagent_base.packages.${system}.claude}/bin/claude';
 
             # Avoid confusions about where the tmpdir is. It will restart with lei cmd
