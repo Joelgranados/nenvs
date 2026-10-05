@@ -44,7 +44,7 @@
           abook
           xdg-utils
           zathura
-          python311Packages.icalendar
+          python312Packages.icalendar
         ];
         packages = self.devShells.${system}.default.shellPkgs
           ++ aiagent_base.devShells.${system}.default.shellPkgs
