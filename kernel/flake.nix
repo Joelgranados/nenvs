@@ -18,10 +18,12 @@
         config.allowUnfree = true;
       };
       system = "x86_64-linux";
+      aigent_path = "${pkgs.lib.makeBinPath [ pkgs.public-inbox ]}:${aiagent_base.aigentPath}:${kernel_base.packages.${system}.semcode}/bin";
     in {
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           krc.packages.${system}.default
+          pkgs.public-inbox
         ]
         ++ krc.devShells.${system}.default.shellPkgs
         ++ kernel_base.devShells.${system}.default.shellPkgs
@@ -31,7 +33,7 @@
           NIX_ENV_SHELL_PROMPT_PREFIX="%F{green}(KERNEL)"
           NIX_ENV_SHELL_ZSHRC_PREFIX="
             alias aigent='sb_claude \
-              --setenv PATH "${aiagent_base.aigentPath}:${kernel_base.packages.${system}.semcode}/bin" \
+              --setenv PATH "${aigent_path}" \
               --ro-bind "$HOME"/src/linux "$HOME"/src/linux \
               ${aiagent_base.packages.${system}.claude}/bin/claude'
           "
